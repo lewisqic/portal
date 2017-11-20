@@ -1,30 +1,10 @@
 <?php
 
 /**
- * subdomain routing for member areas
- */
-Route::group(['domain' => '{account}.tellerr-v1.{tld}'], function($group) {
-
-    Route::get('/', ['uses' => 'Auth\AuthIndexController@showLogin', 'middleware' => 'guest']);
-    Route::get('f/{id}', ['uses' => 'Index\IndexFormController@showForm']);
-
-
-    // prevent www subdomain from matching all routes in this group
-    foreach ( $group->getRoutes() as $route ) {
-        $route->where('account', '^(?!.*www).*$');
-    }
-});
-
-/**
  * Public site routes
  */
 Route::group(['namespace' => 'Index'], function () {
-    Route::get('/', ['uses' => 'IndexIndexController@showHome']);
-    Route::get('pricing', ['uses' => 'IndexIndexController@showPricing']);
-    Route::get('sign-up/{id}', ['uses' => 'IndexIndexController@showSignUp']);
-    Route::post('validate-subdomain', ['uses' => 'IndexIndexController@handleValidateSubdomain']);
-    Route::post('sign-up', ['uses' => 'IndexIndexController@handleSignUp']);
-    Route::post('webhook/stripe', ['uses' => 'IndexIndexController@handleStripeWebhook']);
+    Route::get('/', function() { return redirect('auth/login'); });
 });
 
 

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Auth | Tellerr</title>
+    <title>Auth | Customer Portal</title>
 
     <link rel="stylesheet" href="{{ url('assets/css/skins/blue.css') }}" />
     @stack('styles')
@@ -18,12 +18,9 @@
     <div class="container-fluid">
         <div class="row auth-wrapper">
             <div class="col panel left">
-                <div class="back">
-                    <a href="{{ url('/') }}"><i class="fa fa-long-arrow-left"></i> Go Back Home</a>
-                </div>
                 <div class="panel-inner">
                     <h2 class="logo">
-                        Tellerr <small>v1.0.0</small>
+                        Customer Portal <small>v1.0.0</small>
                     </h2>
                 </div>
             </div>

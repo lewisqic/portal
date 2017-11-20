@@ -1,0 +1,23 @@
+{
+	"name": "rtconner/laravel-kint",
+	"description": "Seamless integration between Laravel and Kint.",
+	"license": "MIT",
+	"homepage": "https://smartersoftware.net/packages/laravel-kint",
+	"keywords": ["laravel", "kint", "laravel5"],
+	"authors": [
+		{
+			"name": "Robert Conner",
+			"email": "rtconner@smarter.bz"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+		"kint-php/kint": "~1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Conner\\Kint\\": "src/"
+		}
+	},
+	"minimum-stability": "dev"
+}
