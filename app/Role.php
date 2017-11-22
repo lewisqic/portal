@@ -55,9 +55,9 @@ class Role extends BaseModel
      * @param  int $type
      * @return collection
      */
-    public static function queryByType($type, $company_id = null)
+    public static function queryByType($type)
     {
-        $roles = Role::where('type', $type)->where('company_id', $company_id)->orderBy('name', 'asc')->get();
+        $roles = Role::where('type', $type)->orderBy('name', 'asc')->get();
         return $roles;
     }
 

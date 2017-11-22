@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin | Tellerr</title>
+    <title>Admin | Customer Portal</title>
 
     <link rel="stylesheet" id="skin_css" href="{{ url('assets/css/skins/' . $app_user->remarkSetting->primary_color . '.css') }}" />
 
@@ -21,7 +21,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a href="{{ url('admin') }}" class="navbar-brand"><i class="fa fa-cloud"></i> <span>Tellerr Admin</span></a>
+            <a href="{{ url('admin') }}" class="navbar-brand"><i class="fa fa-cloud"></i> <span>Portal Admin</span></a>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="#" class="nav-link toggle-sidebar"><i class="fa fa-bars fa-lg"></i></a>
@@ -127,8 +127,14 @@
             <li class="nav-item">
                 <a href="{{ url('admin') }}" class="nav-link {{ nav_active('^admin$') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
-            <li class="nav-item open">
-                <a href="{{ url('admin/plans') }}" class="nav-link {{ nav_active('^admin/plans') }}"><i class="fa fa-list-alt"></i> <span>Plans</span></a>
+            <li class="nav-item">
+                <a href="{{ url('admin/files') }}" class="nav-link {{ nav_active('^admin/files') }}"><i class="fa fa-file"></i> <span>Files</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('admin/members') }}" class="nav-link {{ nav_active('^admin/members', '^admin/members/roles') }}"><i class="fa fa-users"></i> <span>Users</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('admin/members/roles') }}" class="nav-link {{ nav_active('^admin/members/roles') }}"><i class="fa fa-shield"></i> <span>User Groups</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> <span>System</span></a>
@@ -137,11 +143,12 @@
                     <a href="{{ url('admin/administrators') }}" class="dropdown-item {{ nav_active('^admin/administrators') }}">Administrators</a>
                     @endif
                     @if ( has_access('AdminRoleController@index') )
-                    <a href="{{ url('admin/roles') }}" class="dropdown-item {{ nav_active('^admin/roles') }}">Roles</a>
+                    <a href="{{ url('admin/roles') }}" class="dropdown-item {{ nav_active('^admin/roles') }}">Administrator Roles</a>
                     @endif
                     @if ( has_access('AdminSettingController@index') )
                     <a href="{{ url('admin/settings') }}" class="dropdown-item {{ nav_active('^admin/settings') }}">Settings</a>
                     @endif
+                    <a href="{{ url('admin/file-categories') }}" class="dropdown-item {{ nav_active('^admin/file-categories') }}">File Categories</a>
                 </div>
             </li>
         </ul>
@@ -173,7 +180,7 @@
     </div>
 
     <div class="footer">
-        &copy; Tellerr {{ date('Y') }}
+        &copy; Customer Portal {{ date('Y') }}
     </div>
 
 </div>

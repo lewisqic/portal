@@ -24,6 +24,50 @@
     $breadcrumbs->push('Settings', url('admin/settings'));
 });
 
+// members
+\Breadcrumbs::register('admin/members', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('Members', url('admin/members'));
+});
+\Breadcrumbs::register('admin/members/create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin/members');
+    $breadcrumbs->push('Create', url('admin/members/create'));
+});
+\Breadcrumbs::register('admin/members/show', function($breadcrumbs, $user)
+{
+    $breadcrumbs->parent('admin/members');
+    $breadcrumbs->push($user->name, url('admin/members/' . $user->id));
+});
+\Breadcrumbs::register('admin/members/edit', function($breadcrumbs, $user)
+{
+    $breadcrumbs->parent('admin/members/show', $user);
+    $breadcrumbs->push('Edit', url('admin/members/edit/' . $user->id));
+});
+
+// member roles
+\Breadcrumbs::register('admin/members/roles', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('Roles', url('admin/members/roles'));
+});
+\Breadcrumbs::register('admin/members/roles/create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin/members/roles');
+    $breadcrumbs->push('Create', url('admin/members/roles/create'));
+});
+\Breadcrumbs::register('admin/members/roles/show', function($breadcrumbs, $role)
+{
+    $breadcrumbs->parent('admin/members/roles');
+    $breadcrumbs->push($role->name, url('admin/members/roles/' . $role->id));
+});
+\Breadcrumbs::register('admin/members/roles/edit', function($breadcrumbs, $role)
+{
+    $breadcrumbs->parent('admin/members/roles/show', $role);
+    $breadcrumbs->push('Edit', url('admin/members/roles/edit/' . $role->id));
+});
+
 // administrators
 \Breadcrumbs::register('admin/administrators', function($breadcrumbs)
 {
@@ -68,26 +112,48 @@
     $breadcrumbs->push('Edit', url('admin/roles/edit/' . $role->id));
 });
 
-// plans
-\Breadcrumbs::register('admin/plans', function($breadcrumbs)
+// files
+\Breadcrumbs::register('admin/files', function($breadcrumbs)
 {
     $breadcrumbs->parent('admin');
-    $breadcrumbs->push('Plans', url('admin/plans'));
+    $breadcrumbs->push('Files', url('admin/files'));
 });
-\Breadcrumbs::register('admin/plans/create', function($breadcrumbs)
+\Breadcrumbs::register('admin/files/create', function($breadcrumbs)
 {
-    $breadcrumbs->parent('admin/plans');
-    $breadcrumbs->push('Create', url('admin/plans/create'));
+    $breadcrumbs->parent('admin/files');
+    $breadcrumbs->push('Create', url('admin/files/create'));
 });
-\Breadcrumbs::register('admin/plans/show', function($breadcrumbs, $plan)
+\Breadcrumbs::register('admin/files/show', function($breadcrumbs, $file)
 {
-    $breadcrumbs->parent('admin/plans');
-    $breadcrumbs->push($plan->name, url('admin/plans/' . $plan->id));
+    $breadcrumbs->parent('admin/files');
+    $breadcrumbs->push($file->name, url('admin/files/' . $file->id));
 });
-\Breadcrumbs::register('admin/plans/edit', function($breadcrumbs, $plan)
+\Breadcrumbs::register('admin/files/edit', function($breadcrumbs, $file)
 {
-    $breadcrumbs->parent('admin/plans/show', $plan);
-    $breadcrumbs->push('Edit', url('admin/plans/edit/' . $plan->id));
+    $breadcrumbs->parent('admin/files/show', $file);
+    $breadcrumbs->push('Edit', url('admin/files/edit/' . $file->id));
+});
+
+// file-categories
+\Breadcrumbs::register('admin/file-categories', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('File Categories', url('admin/file-categories'));
+});
+\Breadcrumbs::register('admin/file-categories/create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin/file-categories');
+    $breadcrumbs->push('Create', url('admin/file-categories/create'));
+});
+\Breadcrumbs::register('admin/file-categories/show', function($breadcrumbs, $file)
+{
+    $breadcrumbs->parent('admin/file-categories');
+    $breadcrumbs->push($file->name, url('admin/file-categories/' . $file->id));
+});
+\Breadcrumbs::register('admin/file-categories/edit', function($breadcrumbs, $file)
+{
+    $breadcrumbs->parent('admin/file-categories/show', $file);
+    $breadcrumbs->push('Edit', url('admin/file-categories/edit/' . $file->id));
 });
 
 

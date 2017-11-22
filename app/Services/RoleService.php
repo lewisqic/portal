@@ -28,10 +28,10 @@ class RoleService extends BaseService
         $result = \DB::transaction(function() use($data) {
             // determine default
             if ( $data['is_default'] ) {
-                Role::where('type', $data['type'])->where('company_id', $data['company_id'])->update(['is_default' => 0]);
+                Role::where('type', $data['type'])->update(['is_default' => 0]);
             }
             // create the role
-            $role = Role::create(array_only($data, ['type', 'company_id', 'name', 'is_default']));
+            $role = Role::create(array_only($data, ['type', 'name', 'is_default']));
             // assign permissions
             if ( !empty($data['permissions']) ) {
                 $auth_role = \Auth::findRoleById($role->id);
@@ -63,7 +63,7 @@ class RoleService extends BaseService
             $role->save();
             // remove defaults
             if ( $data['is_default'] ) {
-                Role::where('id', '!=', $role->id)->where('type', $role->type)->where('company_id', $role->company_id)->update(['is_default' => 0]);
+                Role::where('id', '!=', $role->id)->where('type', $role->type)->update(['is_default' => 0]);
             }
             // assign permissions
             if ( !empty($data['permissions']) ) {
@@ -89,7 +89,7 @@ class RoleService extends BaseService
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
-        $count = Role::where('type', $role->type)->where('company_id', $role->company_id)->count();
+        $count = Role::where('type', $role->type)->count();
         if ( $role->users->count() > 0 ) {
             throw new \AppExcp('Roles with attached users cannot be deleted.');
         }
@@ -98,7 +98,7 @@ class RoleService extends BaseService
         }
         $role->delete();
         if ( $count == 2 ) {
-            Role::where('type', $role->type)->where('company_id', $role->company_id)->update(['is_default' => 1]);
+            Role::where('type', $role->type)->update(['is_default' => 1]);
         }
         return $role;
     }
@@ -108,9 +108,9 @@ class RoleService extends BaseService
      * return array of roles data for datatables
      * @return array
      */
-    public function dataTables($data, $type, $company_id = null)
+    public function dataTables($data, $type, $route = null)
     {
-        $roles = Role::queryByType($type, $company_id);
+        $roles = Role::queryByType($type);
         $roles->load('users');
         $roles_arr = [];
         foreach ( $roles as $role ) {
@@ -125,9 +125,9 @@ class RoleService extends BaseService
                     'sort' => $role->created_at->timestamp
                 ],
                 'action' => \Html::dataTablesActionButtons([
-                    'edit' => url(User::$types[$type]['route'] . '/roles/' . $role->id . '/edit'),
-                    'delete' => url(User::$types[$type]['route'] . '/roles/' . $role->id),
-                    'click' => url(User::$types[$type]['route'] . '/roles/' . $role->id)
+                    'edit' => url(($route ? $route : User::$types[$type]['route']) . '/roles/' . $role->id . '/edit'),
+                    'delete' => url(($route ? $route : User::$types[$type]['route']) . '/roles/' . $role->id),
+                    'click' => url(($route ? $route : User::$types[$type]['route']) . '/roles/' . $role->id)
                 ])
             ];
         }

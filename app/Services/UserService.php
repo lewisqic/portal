@@ -54,7 +54,6 @@ class UserService extends BaseService
                 case Member::USER_TYPE_ID:
                     $member = $this->memberService->create([
                         'user_id' => $user->id,
-                        'company_id' => $data['company_id'],
                         'is_owner' => isset($data['is_owner']) && $data['is_owner'] ? true : false
                     ]);
                     break;
@@ -97,7 +96,8 @@ class UserService extends BaseService
         if ( isset($data['roles']) ) {
             $user->permissions = null;
         }
-        $user->fill(array_only($data, ['first_name', 'last_name', 'email', 'password']));
+        $data['force_password_reset'] = isset($data['force_password_reset']) ? $data['force_password_reset'] : 0;
+        $user->fill(array_only($data, ['first_name', 'last_name', 'email', 'password', 'force_password_reset']));
         $user->save();
         // assign permissions
         if ( isset($data['permissions']) ) {
@@ -127,6 +127,13 @@ class UserService extends BaseService
         if ( !$auth_user ) {
             throw new \AppExcp('Login attempt failed, please try again.');
         }
+
+        if ( $auth_user->force_password_reset ) {
+            $this->logout();
+            $this->sendReminder($auth_user->email);
+            throw new \AppExcp('Looks like you need to reset your password.  We have sent you an email that will allow you to reset your password.');
+        }
+        
         $route = \Session::has('url.intended') ? \Session::get('url.intended') : User::$types[$auth_user->type]['route'];
         \Session::forget('url.intended');
         return [
@@ -188,6 +195,11 @@ class UserService extends BaseService
         if ( !$result ) {
             throw new \AppExcp('We were unable to complete your password reset request, please try again');
         }
+
+        $user = User::find($auth_user->id);
+        $user->force_password_reset = false;
+        $user->save();
+
         if ( isset($data['login']) ) {
             \Auth::login($auth_user, true);
         }

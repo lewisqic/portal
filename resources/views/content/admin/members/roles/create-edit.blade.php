@@ -8,7 +8,7 @@
     {!! Breadcrumbs::render('admin/roles/create') !!}
 @endif
 
-<h1>{{ $title }} Administrator Role <small>{{ $role->name or '' }}</small></h1>
+<h1>{{ $title }} User Group <small>{{ $role->name or '' }}</small></h1>
 
 <div class="page-content container-fluid">
 

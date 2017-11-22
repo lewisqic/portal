@@ -53,10 +53,17 @@ function has_access($permission) {
  * @param string $route
  * @return string
  */
-function nav_active($pattern) {
+function nav_active($pattern, $negative_pattern = null) {
     $path = \Request::path();
     $pattern = str_replace('/', '\/', $pattern);
-    return preg_match('/' . $pattern . '/', $path) ? 'active' : '';
+
+    $no_negative_match = true;
+    if ( $negative_pattern ) {
+        $negative_pattern = str_replace('/', '\/', $negative_pattern);
+        $no_negative_match = !preg_match('/' . $negative_pattern . '/', $path);
+    }
+
+    return preg_match('/' . $pattern . '/', $path) && $no_negative_match ? 'active' : '';
 }
 
 /**

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CompanySubscription extends BaseModel
+class File extends BaseModel
 {
     use SoftDeletes;
 
@@ -20,12 +20,7 @@ class CompanySubscription extends BaseModel
      * @var array
      */
     protected $rules = [
-        'company_id'       => 'required',
-        'plan_privilege'   => 'required',
-        'plan_name'        => 'required',
-        'plan_price_month' => 'required',
-        'plan_price_year'  => 'required',
-        'status'           => 'required'
+        'name'            => 'required'
     ];
 
     /**
@@ -34,7 +29,7 @@ class CompanySubscription extends BaseModel
      * @var array
      */
     protected $dates = [
-        'trial_ends_at', 'canceled_at', 'next_billing_at', 'created_at', 'updated_at', 'deleted_at'
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
 
@@ -43,36 +38,18 @@ class CompanySubscription extends BaseModel
      ******************************************************************/
 
 
-    // companies
-    public function company()
-    {
-        return $this->belongsTo('App\Company');
-    }
-    // company_payments
-    public function payments()
-    {
-        return $this->hasMany('App\CompanyPayment');
-    }
-    // company_payment_methods
-    public function paymentMethods()
-    {
-        return $this->hasMany('App\CompanyPaymentMethod');
-    }
-    // plan_change_requests
-    public function planChangeRequest()
-    {
-        return $this->hasOne('App\PlanChangeRequest');
-    }
-    // status_history
-    public function statusHistory()
-    {
-        return $this->morphMany('App\StatusHistory', 'statusable');
-    }
-
 
     /******************************************************************
      * MODEL HOOKS
      ******************************************************************/
+
+
+
+    /******************************************************************
+     * MODEL ACCESSORS/MUTATORS
+     ******************************************************************/
+
+
 
 
     /******************************************************************
@@ -81,8 +58,11 @@ class CompanySubscription extends BaseModel
 
 
 
+
     /******************************************************************
      * CUSTOM ORM ACTIONS
      ******************************************************************/
+
+
 
 }

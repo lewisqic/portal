@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CompanyPaymentMethod extends BaseModel
+class FileCategory extends BaseModel
 {
     use SoftDeletes;
 
@@ -20,13 +20,8 @@ class CompanyPaymentMethod extends BaseModel
      * @var array
      */
     protected $rules = [
-        'company_id'          => 'required',
-        'stripe_source_id'    => 'required',
-        'cc_last4'            => 'required',
-        'cc_expiration_month' => 'required',
-        'cc_expiration_year'  => 'required',
+        'name'            => 'required'
     ];
-
 
     /**
      * The attributes that should be mutated to dates.
@@ -43,22 +38,18 @@ class CompanyPaymentMethod extends BaseModel
      ******************************************************************/
 
 
-    // companies
-    public function company()
-    {
-        return $this->belongsTo('\App\Company');
-    }
-
-    // companies
-    public function payments()
-    {
-        return $this->hasMany('\App\CompanyPayment');
-    }
-
 
     /******************************************************************
      * MODEL HOOKS
      ******************************************************************/
+
+
+
+    /******************************************************************
+     * MODEL ACCESSORS/MUTATORS
+     ******************************************************************/
+
+
 
 
     /******************************************************************
@@ -66,9 +57,12 @@ class CompanyPaymentMethod extends BaseModel
      ******************************************************************/
 
 
+
+
     /******************************************************************
      * CUSTOM ORM ACTIONS
      ******************************************************************/
+
 
 
 }

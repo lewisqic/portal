@@ -38,10 +38,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkPermissi
     Route::get('profile', ['uses' => 'AdminProfileController@index']);
     Route::put('profile', ['uses' => 'AdminProfileController@update']);
 
-    // plans
-    Route::get('plans/data', ['uses' => 'AdminPlanController@dataTables']);
-    Route::patch('plans/{id}', ['uses' => 'AdminPlanController@restore']);
-    Route::resource('plans', 'AdminPlanController');
+    // files
+    Route::get('files/data', ['uses' => 'AdminFileController@dataTables']);
+    Route::patch('files/{id}', ['uses' => 'AdminFileController@restore']);
+    Route::resource('files', 'AdminFileController');
+
+    // files
+    Route::get('file-categories/data', ['uses' => 'AdminFileCategoryController@dataTables']);
+    Route::patch('file-categories/{id}', ['uses' => 'AdminFileCategoryController@restore']);
+    Route::resource('file-categories', 'AdminFileCategoryController');
+
+    // member roles
+    Route::get('members/roles/data', ['uses' => 'AdminMemberRoleController@dataTables']);
+    Route::resource('members/roles', 'AdminMemberRoleController');
+
+    // members
+    Route::get('members/data', ['uses' => 'AdminMemberController@dataTables']);
+    Route::patch('members/{id}', ['uses' => 'AdminMemberController@restore']);
+    Route::resource('members', 'AdminMemberController');
 
     // administrators
     Route::get('administrators/data', ['uses' => 'AdminAdministratorController@dataTables']);

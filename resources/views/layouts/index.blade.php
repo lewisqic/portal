@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tellerr</title>
+    <title>Customer Portal</title>
 
     <link rel="stylesheet" id="skin_css" href="{{ url('assets/css/skins/blue.css') }}" />
 
