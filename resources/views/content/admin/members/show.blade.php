@@ -23,7 +23,10 @@
                     <a class="nav-link active" data-toggle="tab" href="#show_details" role="tab">Details</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#show_permissions" role="tab">Roles/Permissions</a>
+                    <a class="nav-link" data-toggle="tab" href="#files" role="tab">Files</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#permissions" role="tab">Groups</a>
                 </li>
             </ul>
 
@@ -86,10 +89,22 @@
                     </div>
 
                 </div>
-                <div class="tab-pane" id="show_permissions" role="tabpanel">
+                <div class="tab-pane" id="files" role="tabpanel">
 
                     <div class="form-group row">
-                        <label class="col-form-label col-sm-2">Role(s):</label>
+                        <label class="col-form-label col-sm-2">
+                            File(s)
+                        </label>
+                        <div class="col-sm-10 form-control-static">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="permissions" role="tabpanel">
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-2">Group(s):</label>
                         <div class="col-sm-10 form-control-static">
                             @if ( $user_roles )
                                 @foreach ( $user_roles as $role )
@@ -97,27 +112,6 @@
                                 @endforeach
                             @else
                                 <em class="text-muted">no role set</em>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-sm-2">Permissions:</label>
-                        <div class="col-sm-10 form-control-static">
-                            @if ( $user_permissions )
-                                @foreach ( $permissions as $group )
-                                    @if ( preg_match('/' . $group['controller'] . '@/', $user->permissions) )
-                                        <div>{{ $group['label'] }}</div>
-                                    @endif
-                                    @foreach ( $group['actions'] as $key => $value )
-                                        @php $id = $group['controller'] . '@' . $key @endphp
-                                        @if ( isset($user_permissions[$id]) )
-                                            <div class="ml-4"><small>{{ $value }}</small></div>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                            @else
-                                <em class="text-muted">no custom permissions set</em>
                             @endif
                         </div>
                     </div>

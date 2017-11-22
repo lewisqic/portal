@@ -131,11 +131,13 @@
                 <a href="{{ url('admin/files') }}" class="nav-link {{ nav_active('^admin/files') }}"><i class="fa fa-file"></i> <span>Files</span></a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/members') }}" class="nav-link {{ nav_active('^admin/members', '^admin/members/roles') }}"><i class="fa fa-users"></i> <span>Users</span></a>
+                <a href="{{ url('admin/members') }}" class="nav-link {{ nav_active('^admin/members', '^admin/members/roles') }}"><i class="fa fa-user"></i> <span>Users</span></a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('admin/members/roles') }}" class="nav-link {{ nav_active('^admin/members/roles') }}"><i class="fa fa-shield"></i> <span>User Groups</span></a>
+                <a href="{{ url('admin/members/roles') }}" class="nav-link {{ nav_active('^admin/members/roles') }}"><i class="fa fa-users"></i> <span>User Groups</span></a>
             </li>
+
+
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> <span>System</span></a>
                 <div class="dropdown-menu">

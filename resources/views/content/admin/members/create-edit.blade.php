@@ -145,7 +145,3 @@
 </div>
 
 @endsection
-
-@push('scripts')
-<script src="{{ url('assets/js/modules/permissions.js') }}"></script>
-@endpush

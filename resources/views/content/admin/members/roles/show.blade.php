@@ -38,26 +38,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-form-label col-sm-2">Default:</label>
+                        <label class="col-form-label col-sm-2">Files:</label>
                         <div class="col-sm-10 form-control-static">
-                            {{ $role->is_default ? 'Yes' : 'No' }}
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-sm-2">Permissions:</label>
-                        <div class="col-sm-10 form-control-static">
-                            @foreach ( $permissions as $group )
-                                @if ( preg_match('/' . $group['controller'] . '@/', $role->permissions) )
-                                    <div>{{ $group['label'] }}</div>
-                                @endif
-                                @foreach ( $group['actions'] as $key => $value )
-                                    @php $id = $group['controller'] . '@' . $key @endphp
-                                    @if ( isset($auth_role->permissions[$id]) )
-                                        <div class="ml-4"><small>{{ $value }}</small></div>
-                                    @endif
-                                @endforeach
-                            @endforeach
+                            show files here
                         </div>
                     </div>
 
