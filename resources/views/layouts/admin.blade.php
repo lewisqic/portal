@@ -148,7 +148,7 @@
                     <a href="{{ url('admin/roles') }}" class="dropdown-item {{ nav_active('^admin/roles') }}">Administrator Roles</a>
                     @endif
                     @if ( has_access('AdminSettingController@index') )
-                    <a href="{{ url('admin/settings') }}" class="dropdown-item {{ nav_active('^admin/settings') }}">Settings</a>
+                    {{--<a href="{{ url('admin/settings') }}" class="dropdown-item {{ nav_active('^admin/settings') }}">Settings</a>--}}
                     @endif
                     <a href="{{ url('admin/file-categories') }}" class="dropdown-item {{ nav_active('^admin/file-categories') }}">File Categories</a>
                 </div>
