@@ -124,9 +124,9 @@
     <div class="sidebar-scrollbar">
 
         <ul class="nav flex-column">
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a href="{{ url('admin') }}" class="nav-link {{ nav_active('^admin$') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-            </li>
+            </li>--}}
             <li class="nav-item">
                 <a href="{{ url('admin/files') }}" class="nav-link {{ nav_active('^admin/files') }}"><i class="fa fa-file"></i> <span>Files</span></a>
             </li>

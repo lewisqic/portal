@@ -32,7 +32,8 @@ class AdminIndexController extends Controller
      */
     public function showDashboard()
     {
-        return view('content.admin.index.dashboard');
+        return redirect('admin/files');
+        //return view('content.admin.index.dashboard');
     }
 
     /**
