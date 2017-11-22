@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Role;
 use App\Member;
+use App\File;
 use App\Services\RoleService;
 use App\Http\Controllers\Controller;
 
@@ -58,7 +59,7 @@ class AdminMemberRoleController extends Controller
             'title' => 'Add',
             'method' => 'post',
             'action' => url('admin/members/roles'),
-            'permissions' => \Config::get('permissions')['account']
+            'files' => File::orderBy('name', 'asc')->get(),
         ];
         return view('content.admin.members.roles.create-edit', $data);
     }
@@ -75,7 +76,7 @@ class AdminMemberRoleController extends Controller
             'title' => 'Edit',
             'method' => 'put',
             'action' => url('admin/members/roles/' . $id),
-            'permissions' => \Config::get('permissions')['account'],
+            'files' => File::orderBy('name', 'asc')->get(),
             'role' => $role,
             'auth_role' => \Auth::findRoleById($role->id)
         ];
@@ -89,11 +90,16 @@ class AdminMemberRoleController extends Controller
      */
     public function show($id)
     {
+        $file_names = [];
+        foreach ( File::all() as $file ) {
+            $file_names[$file->id] = $file->name;
+        }
         $role = Role::findOrFail($id);
         $data = [
             'permissions' => \Config::get('permissions')['account'],
             'role' => $role,
-            'auth_role' => \Auth::findRoleById($role->id)
+            'auth_role' => \Auth::findRoleById($role->id),
+            'file_names' => $file_names
         ];
         return view('content.admin.members.roles.show', $data);
     }

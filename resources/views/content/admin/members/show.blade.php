@@ -97,6 +97,15 @@
                         </label>
                         <div class="col-sm-10 form-control-static">
 
+                            @if ( $user->member->files )
+                            <ul class="list-style-none pl-0 mb-0">
+                                @foreach ( $user->member->files as $file )
+                                    <li>{{ $file_names[$file] }}</li>
+                                @endforeach
+                            </ul>
+                            @else
+                                <em class="text-muted">no files assigned</em>
+                            @endif
 
                         </div>
                     </div>

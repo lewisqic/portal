@@ -30,6 +30,23 @@ class MemberService extends BaseService
 
 
     /**
+     * update a member record
+     * @param  array  $data
+     * @return array
+     */
+    public function update($user_id, $data)
+    {
+
+        // get the user
+        $member = Member::where('user_id', $user_id)->first();
+        $member->fill($data);
+        $member->save();
+        return $member;
+
+    }
+
+
+    /**
      * return array of member data for datatables
      * @return array
      */

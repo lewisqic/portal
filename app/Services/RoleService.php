@@ -31,7 +31,8 @@ class RoleService extends BaseService
                 Role::where('type', $data['type'])->update(['is_default' => 0]);
             }
             // create the role
-            $role = Role::create(array_only($data, ['type', 'name', 'is_default']));
+            $data['files'] = isset($data['files']) ? $data['files'] : [];
+            $role = Role::create(array_only($data, ['type', 'name', 'is_default', 'files']));
             // assign permissions
             if ( !empty($data['permissions']) ) {
                 $auth_role = \Auth::findRoleById($role->id);

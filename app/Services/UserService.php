@@ -54,7 +54,8 @@ class UserService extends BaseService
                 case Member::USER_TYPE_ID:
                     $member = $this->memberService->create([
                         'user_id' => $user->id,
-                        'is_owner' => isset($data['is_owner']) && $data['is_owner'] ? true : false
+                        'is_owner' => isset($data['is_owner']) && $data['is_owner'] ? true : false,
+                        'files' => isset($data['files']) ? $data['files'] : []
                     ]);
                     break;
             }
@@ -110,6 +111,14 @@ class UserService extends BaseService
         // assign roles
         if ( isset($data['roles']) ) {
             $user->roles()->sync($data['roles']);
+        }
+        // update the relation table
+        switch ( $user->type ) {
+            case Member::USER_TYPE_ID:
+                $member = $this->memberService->update($id, [
+                    'files' => isset($data['files']) ? $data['files'] : []
+                ]);
+                break;
         }
         return $user;
     }

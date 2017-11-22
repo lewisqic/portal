@@ -2,11 +2,11 @@
 
 @section('content')
 
-    {!! Breadcrumbs::render('admin/roles/show', $role) !!}
+    {!! Breadcrumbs::render('admin/members/roles/show', $role) !!}
 
     <div class="float-right">
-        <a href="{{ url('admin/roles/' . $role->id . '/edit?_ajax=false&_redir=' . urlencode(url('admin/roles/' . $role->id))) }}" class="btn btn-primary open-sidebar"><i class="fa fa-edit"></i> Edit</a>
-        <form action="{{ url('admin/roles/' . $role->id) }}" method="post" class="validate d-inline ml-2" id="delete_form">
+        <a href="{{ url('admin/members/roles/' . $role->id . '/edit?_ajax=false&_redir=' . urlencode(url('admin/members/roles/' . $role->id))) }}" class="btn btn-primary open-sidebar"><i class="fa fa-edit"></i> Edit</a>
+        <form action="{{ url('admin/members/roles/' . $role->id) }}" method="post" class="validate d-inline ml-2" id="delete_form">
             {!! \Html::hiddenInput(['method' => 'delete']) !!}
             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
         </form>
@@ -38,9 +38,26 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-form-label col-sm-2">Default:</label>
+                        <div class="col-sm-10 form-control-static">
+                            {{ $role->is_default ? 'Yes' : 'No' }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-form-label col-sm-2">Files:</label>
                         <div class="col-sm-10 form-control-static">
-                            show files here
+                            <ul class="list-style-none pl-0 mb-0">
+                                @if ( $role->files )
+                                    <ul class="list-style-none pl-0">
+                                        @foreach ( $role->files as $file )
+                                            <li>{{ $file_names[$file] }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <em class="text-muted">no files assigned</em>
+                                @endif
+                            </ul>
                         </div>
                     </div>
 

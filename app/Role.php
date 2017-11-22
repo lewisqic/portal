@@ -38,6 +38,21 @@ class Role extends BaseModel
 
 
     /******************************************************************
+     * MUTATORS AND ACCESSORS
+     ******************************************************************/
+
+    public function setFilesAttribute($value)
+    {
+        $this->attributes['files'] = json_encode($value);
+    }
+
+    public function getFilesAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+
+    /******************************************************************
      * CUSTOM  PROPERTIES
      ******************************************************************/
 

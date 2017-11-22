@@ -24,11 +24,28 @@
         </div>
 
         <div class="form-group row">
+            <label class="col-form-label col-sm-3">Default</label>
+            <div class="col-sm-9">
+                <select name="is_default" class="form-control">
+                    <option value="0" {{ isset($role) && !$role->is_default ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ isset($role) && $role->is_default ? 'selected' : '' }}>Yes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label class="col-form-label col-sm-3">
                 Files
             </label>
             <div class="col-sm-9 form-control-static">
-                list files here
+                <div class="file-list-wrapper" style="max-height: 500px; overflow: auto;">
+                    @foreach ( $files as $file )
+                        <div class="abc-checkbox abc-checkbox-primary">
+                            <input type="checkbox" name="files[]" id="file_{{ $file->id }}" value="{{ $file->id }}" {{ isset($role) && in_array($file->id, $role->files) ? 'checked' : '' }}>
+                            <label for="file_{{ $file->id }}">{{ $file->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
 

@@ -24,18 +24,18 @@
 
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#details" role="tab">Details</a>
+                <a class="nav-link active" data-toggle="tab" href="#sidebar_details" role="tab">Details</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#files" role="tab">Files</a>
+                <a class="nav-link" data-toggle="tab" href="#sidebar_files" role="tab">Files</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#permissions" role="tab">Groups</a>
+                <a class="nav-link" data-toggle="tab" href="#sidebar_permissions" role="tab">Groups</a>
             </li>
         </ul>
 
         <div class="tab-content mt-4">
-            <div class="tab-pane active" id="details" role="tabpanel">
+            <div class="tab-pane active" id="sidebar_details" role="tabpanel">
 
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">First Name</label>
@@ -98,19 +98,25 @@
                 </div>
 
             </div>
-            <div class="tab-pane" id="files" role="tabpanel">
+            <div class="tab-pane" id="sidebar_files" role="tabpanel">
 
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">
                         File(s)
                     </label>
                     <div class="col-sm-9 form-control-static">
-
-
+                        <div class="file-list-wrapper" style="max-height: 600px; overflow: auto;">
+                            @foreach ( $files as $file )
+                                <div class="abc-checkbox abc-checkbox-primary">
+                                    <input type="checkbox" name="files[]" id="file_{{ $file->id }}" value="{{ $file->id }}" {{ isset($user) && in_array($file->id, $user->member->files) ? 'checked' : '' }}>
+                                    <label for="file_{{ $file->id }}">{{ $file->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="permissions" role="tabpanel">
+            <div class="tab-pane" id="sidebar_permissions" role="tabpanel">
 
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">

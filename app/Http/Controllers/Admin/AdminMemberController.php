@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Member;
 use App\User;
 use App\Role;
+use App\File;
 use App\Services\UserService;
 use App\Services\MemberService;
+use App\Services\FileService;
 use App\Http\Controllers\Controller;
 
 
@@ -18,16 +20,18 @@ class AdminMemberController extends Controller
      */
     protected $userService;
     protected $memberService;
+    protected $fileService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserService $us, MemberService $ms)
+    public function __construct(UserService $us, MemberService $ms, FileService $fs)
     {
         $this->userService = $us;
         $this->memberService = $ms;
+        $this->fileService = $fs;
     }
 
     /**
@@ -62,7 +66,7 @@ class AdminMemberController extends Controller
             'title' => 'Add',
             'method' => 'post',
             'action' => url('admin/members'),
-            'permissions' => \Config::get('permissions')['admin'],
+            'files' => File::orderBy('name', 'asc')->get(),
             'roles' => Role::queryByType(Member::USER_TYPE_ID)
         ];
         return view('content.admin.members.create-edit', $data);
@@ -80,11 +84,10 @@ class AdminMemberController extends Controller
             'title' => 'Edit',
             'method' => 'put',
             'action' => url('admin/members/' . $id),
-            'permissions' => \Config::get('permissions')['admin'],
+            'files' => File::orderBy('name', 'asc')->get(),
             'roles' => Role::queryByType(Member::USER_TYPE_ID),
             'user' => $user,
-            'user_roles' => $user->roles->count() ? $user->roles->toArray() : [],
-            'user_permissions' => $user->permissions ? json_decode($user->permissions, true) : []
+            'user_roles' => $user->roles->count() ? $user->roles->toArray() : []
         ];
         return view('content.admin.members.create-edit', $data);
     }
@@ -96,12 +99,17 @@ class AdminMemberController extends Controller
      */
     public function show($id)
     {
+        $file_names = [];
+        foreach ( File::all() as $file ) {
+            $file_names[$file->id] = $file->name;
+        }
         $user = User::findOrFail($id);
         $data = [
             'user' => $user,
             'permissions' => \Config::get('permissions')['admin'],
             'user_roles' => $user->roles->count() ? $user->roles->toArray() : [],
-            'user_permissions' => $user->permissions ? json_decode($user->permissions, true) : []
+            'user_permissions' => $user->permissions ? json_decode($user->permissions, true) : [],
+            'file_names' => $file_names
         ];
         return view('content.admin.members.show', $data);
     }

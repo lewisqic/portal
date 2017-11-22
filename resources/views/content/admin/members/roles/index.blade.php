@@ -16,6 +16,7 @@
             <thead>
                 <tr>
                     <th data-name="name" data-order="primary-asc">Name</th>
+                    <th data-name="is_default">Default</th>
                     <th data-name="user_count">User Count</th>
                     <th data-name="created_at" data-o-sort="true">Date Created</th>
                     {!! Html::dataTablesActionColumn() !!}
