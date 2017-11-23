@@ -6,13 +6,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Account | Tellerr</title>
+    <title>User Portal</title>
 
     <link rel="stylesheet" id="skin_css" href="{{ url('assets/css/skins/' . $app_user->remarkSetting->primary_color . '.css') }}" />
 
 </head>
 
-<body class="remark sidebar-{{ $app_user->remarkSetting->sidebar_skin }} {{ $app_user->remarkSetting->sidebar_minimized ? 'sidebar-minimized' : '' }} {{ $app_user->remarkSetting->navbar_inverse ? 'navbar-inverse' : '' }} {{ $is_sandbox ? 'sandbox' : '' }}">
+<body class="remark sidebar-{{ $app_user->remarkSetting->sidebar_skin }} {{ $app_user->remarkSetting->sidebar_minimized ? 'sidebar-minimized' : '' }} {{ $app_user->remarkSetting->navbar_inverse ? 'navbar-inverse' : '' }}">
 
 <div class="header">
 
@@ -21,65 +21,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a href="{{ url('account') }}" class="navbar-brand"><i class="fa fa-cloud"></i> <span>Tellerr</span></a>
-            <ul class="navbar-nav">
+            <a href="{{ url('account') }}" class="navbar-brand"><i class="fa fa-cloud"></i> <span>User Portal</span></a>
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a href="#" class="nav-link toggle-sidebar"><i class="fa fa-bars fa-lg"></i></a>
                 </li>
             </ul>
-            <form action="{{ url('account/search') }}" method="post" class="validate form-inline">
-                {!! Html::hiddenInput() !!}
-                <input class="form-control" type="text" placeholder="search...">
-                <button type="submit" class="btn"><i class="fa fa-search"></i></button>
-            </form>
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle hide-arrow" id="notification_menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-bell fa-lg"></i> <span class="badge badge-danger">3</span>
-                    </a>
-                    <div class="dropdown-menu animated fadeInUp notifications" aria-labelledby="notification_menu">
-                        <div class="notification-header">Notifications <span class="badge badge-danger">3 New</span></div>
-                        <a href="#" class="dropdown-item">
-                            <div class="notification-item">
-                                <span class="icon primary"><i class="fa fa-calendar"></i></span>
-                                <span class="title">A new event has been scheduled</span>
-                                <span class="date">2 days ago</span>
-                            </div>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <div class="notification-item">
-                                <span class="icon warning"><i class="fa fa-server"></i></span>
-                                <span class="title">Disk space is 90% full</span>
-                                <span class="date">4 days ago</span>
-                            </div>
-                        </a>
-                        <a href="#" class="notification-footer">View all notifications <i class="fa fa-bell"></i></a>
-                    </div>
-                </li>
-            </ul>
-            <div class="mr-auto">
-                @if ( $company->setup_completed && $company->stripe_account_status == 'deferred' )
-                <div class="alert alert-primary alert-alt ml-5 mt-3 py-2">
-                    <i class="fa fa-info-circle"></i> Your Stripe account still needs to be verified, <a href="{{ url('account/verify') }}" class="text-underline">click here</a> for more details.
-                </div>
-                @endif
-                @if ( $company->setup_completed && empty($company->stripe_account_status) )
-                    <div class="alert alert-warning alert-alt ml-5 mt-3 py-2">
-                        <i class="fa fa-info-circle"></i> You need to <a href="{{ url('account/activate') }}" class="text-warning text-underline">activate your account</a> before you can accept live payments.
-                    </div>
-                @endif
-            </div>
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle hide-arrow" id="language_menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ url('assets/images/flags/english.png') }}" class="flag">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right animated fadeInUp" aria-labelledby="language_menu">
-                        <a href="#" class="dropdown-item"><img src="{{ url('assets/images/flags/spanish.png') }}" class="flag"> Español</a>
-                        <a href="#" class="dropdown-item"><img src="{{ url('assets/images/flags/french.png') }}" class="flag"> Français</a>
-                        <a href="#" class="dropdown-item"><img src="{{ url('assets/images/flags/german.png') }}" class="flag"> Deutsche</a>
-                    </div>
-                </li>
                 <li class="nav-item dropdown ml-3">
                     <a href="#" class="nav-link dropdown-toggle" id="user_menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Welcome, {{ $app_user->first_name }}
@@ -171,76 +119,10 @@
     <div class="sidebar-scrollbar">
 
         <ul class="nav flex-column">
-            @if ( !$company->setup_completed )
-            <li class="nav-item">
-                <a href="{{ url('account/setup') }}" class="nav-link  {{ nav_active('^account/setup') }}"><i class="fa fa-magic"></i> <span>Setup Wizard</span></a>
-            </li>
-            @endif
             <li class="nav-item">
                 <a href="{{ url('account') }}" class="nav-link  {{ nav_active('^account$') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
-                <a href="{{ url('account/forms') }}" class="nav-link {{ nav_active('^account/forms') }}"><i class="fa fa-wpforms"></i> <span>Forms</span></a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('account/invoices') }}" class="nav-link {{ nav_active('^account/invoices') }}"><i class="fa fa-file-text-o"></i> <span>Invoices</span></a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('account/payments') }}" class="nav-link {{ nav_active('^account/payments') }}"><i class="fa fa-credit-card"></i> <span>Payments</span></a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('account/subscriptions') }}" class="nav-link {{ nav_active('^account/subscriptions') }}"><i class="fa fa-refresh"></i> <span>Subscriptions</span></a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('account/reports') }}" class="nav-link {{ nav_active('^account/reports') }}"><i class="fa fa-bar-chart"></i> <span>Reports</span></a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('account/coupons') }}" class="nav-link {{ nav_active('^account/coupons') }}"><i class="fa fa-tag"></i> <span>Coupons</span></a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('account/themes') }}" class="nav-link {{ nav_active('^account/themes') }}"><i class="fa fa-paint-brush"></i> <span>Themes</span></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> <span>System</span></a>
-                <div class="dropdown-menu">
-                    <a href="{{ url('account/billing/subscription') }}" class="dropdown-item {{ nav_active('^account/billing') }}"><i class="fa fa-credit-card"></i> Billing & Subscription</a>
-                    <a href="{{ url('account/users') }}" class="dropdown-item {{ nav_active('^account/users') }}"><i class="fa fa-users"></i> Users</a>
-                    <a href="{{ url('account/roles') }}" class="dropdown-item {{ nav_active('^account/roles') }}"><i class="fa fa-key"></i> Roles</a>
-                    <a href="{{ url('account/settings') }}" class="dropdown-item {{ nav_active('^account/settings') }}"><i class="fa fa-wrench"></i> Account Settings</a>
-                </div>
-            </li>
         </ul>
-
-    </div>
-
-    <div class="trial-sandbox-wrapper">
-
-        @if ( ($is_trial || $is_trial_expired || $is_canceled) )
-            <div class="trial-notice {{ $is_trial_expired || $is_canceled ? 'trial-expired' : '' }}">
-                @if ( $is_trial_expired || $is_canceled )
-                    <i class="fa fa-exclamation-circle"></i>
-                    @if ( $is_canceled )
-                        <strong>Your subscription was canceled on {{ $subscription->canceled_at->toFormattedDateString() }}.</strong><br><a href="{{ url('account/billing/upgrade') }}">Resume your subscription</a>
-                    @else
-                        <strong>Your free trial has expired.</strong><br><a href="{{ url('account/billing/upgrade') }}">Upgrade now</a> to resume uninterrupted service.
-                    @endif
-                @else
-                    <i class="fa fa-info-circle"></i>
-                    @if ( $trial_days_left > 1 )
-                        <strong>{{ $trial_days_left }} days</strong> till free trial ends.
-                    @else
-                        Free trial ends <strong>today</strong>.
-                    @endif
-                    <br><a href="{{ url('account/billing/upgrade') }}">Upgrade now</a> to enjoy uninterrupted service.
-                @endif
-            </div>
-        @endif
-
-        @if ( $is_sandbox )
-            <div class="sandbox-notice">
-                Hey! Your account is currently in <strong>sandbox</strong> mode.  <a href="#">Click here</a> to learn what that means (and how to get rid of this message).
-            </div>
-        @endif
 
     </div>
 
@@ -269,7 +151,7 @@
     </div>
 
     <div class="footer">
-        &copy; Tellerr {{ date('Y') }}
+        &copy; User Portal {{ date('Y') }}
     </div>
 
 </div>

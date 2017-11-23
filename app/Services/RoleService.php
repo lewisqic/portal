@@ -58,8 +58,9 @@ class RoleService extends BaseService
     {
         $result = \DB::transaction(function() use($id, $data) {
             // update the role
+            $data['files'] = isset($data['files']) ? $data['files'] : [];
             $role = Role::findOrFail($id);
-            $role->fill(array_only($data, ['name', 'is_default']));
+            $role->fill(array_only($data, ['name', 'is_default', 'files']));
             $role->permissions = null;
             $role->save();
             // remove defaults

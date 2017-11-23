@@ -114,7 +114,7 @@ class AdminMemberRoleController extends Controller
         $data = \Request::all();
         $data['type'] = Member::USER_TYPE_ID;
         $role = $this->roleService->create($data);
-        \Msg::success($role->name . ' role has been added successfully!');
+        \Msg::success($role->name . ' group has been added successfully!');
         return redir('admin/members/roles');
     }
 
@@ -126,7 +126,7 @@ class AdminMemberRoleController extends Controller
     public function update()
     {
         $role = $this->roleService->update(\Request::input('id'), \Request::except('id'));
-        \Msg::success($role->name . ' role has been updated successfully!');
+        \Msg::success($role->name . ' group has been updated successfully!');
         return redir('admin/members/roles');
     }
 
@@ -138,7 +138,7 @@ class AdminMemberRoleController extends Controller
     public function destroy($id)
     {
         $role = $this->roleService->destroy($id);
-        \Msg::success($role->name . ' role has been deleted successfully!');
+        \Msg::success($role->name . ' group has been deleted successfully!');
         return redir('admin/members/roles');
     }
 

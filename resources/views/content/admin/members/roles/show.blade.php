@@ -48,7 +48,7 @@
                         <label class="col-form-label col-sm-2">Files:</label>
                         <div class="col-sm-10 form-control-static">
                             <ul class="list-style-none pl-0 mb-0">
-                                @if ( $role->files )
+                                @if ( $role->files && $file_names )
                                     <ul class="list-style-none pl-0">
                                         @foreach ( $role->files as $file )
                                             <li>{{ $file_names[$file] }}</li>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="tab-pane" id="show_users" role="tabpanel">
 
-                    <table id="list_role_users_table" class="datatable table table-striped table-hover" data-url="{{ url('admin/administrators/data') }}" data-params='{"role_id": "{{ $role->id }}"}'>
+                    <table id="list_role_users_table" class="datatable table table-striped table-hover" data-url="{{ url('admin/members/data') }}" data-params='{"role_id": "{{ $role->id }}"}'>
                         <thead>
                             <tr>
                                 <th data-name="first_name" data-order="primary-asc">First Name</th>

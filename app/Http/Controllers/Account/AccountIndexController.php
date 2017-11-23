@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Account;
 
 use App\User;
+use App\File;
 use App\Services\RemarkSettingService;
-use App\Services\CompanyService;
 use App\Http\Controllers\Controller;
 
 
@@ -15,17 +15,15 @@ class AccountIndexController extends Controller
      * declare our services to be injected
      */
     protected $remarkSettingService;
-    protected $companyService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(RemarkSettingService $remark_setting_service, CompanyService $company_service)
+    public function __construct(RemarkSettingService $remark_setting_service)
     {
         $this->remarkSettingService = $remark_setting_service;
-        $this->companyService = $company_service;
     }
 
     /**
@@ -35,115 +33,60 @@ class AccountIndexController extends Controller
      */
     public function showDashboard()
     {
-        return view('content.account.index.dashboard');
-    }
+        $user = app('app_user');
+        
+        $roles = $user->roles->toArray();
+        
+        $file_ids = $user->member->files;
+        foreach ( $roles as $role ) {
+            $file_ids = array_merge($file_ids, $role['files']);
+        }
 
-    /**
-     * Show the setup wizard page
-     *
-     * @return view
-     */
-    public function showSetupWizard()
-    {
-        $company = app('company');
+        $files = [];
+        foreach ( File::all() as $file ) {
+            if ( in_array($file->id, $file_ids) ) {
+                $files[] = $file;
+            }
+        }
+
         $data = [
-            'stripe_account_created' => $company->stripe_account_id ? true : false
+            'files' => $files
         ];
-        return view('content.account.index.setup-wizard', $data);
+
+        return view('content.account.index.dashboard', $data);
     }
 
     /**
-     * Show the activation page
+     * download file
      *
      * @return view
      */
-    public function showActivate()
+    public function handleDownloadFile($id)
     {
-        $company = app('company');
-        // redirect if account is active already
-        if ( !empty($company->stripe_account_status) ) {
-            return redir('account');
+        $file = File::findOrFail($id);
+        $path = storage_path('app/' . $file->filename);
+        if ( !file_exists($path) ) {
+            die('Unable to find file');
         }
-        return view('content.account.index.activate');
+        return response()->download($path, $file->name . '.' . $file->type);
     }
 
     /**
-     * Show the verify page
+     * view file
      *
      * @return view
      */
-    public function showVerify()
+    public function handleViewFile($id)
     {
-        $company = app('company');
-        // redirect if account is active already
-        if ( $company->stripe_account_status != 'deferred' ) {
-            return redir('account');
-        }
-        return view('content.account.index.verify');
-    }
 
-    /**
-     * Handle our account activation
-     *
-     * @return json
-     */
-    public function handleActivate()
-    {
-        try {
-            $company = $this->companyService->createStripeAccount(app('company')->id, \Request::all());
-            \Msg::success('Your account has been activated successfully! Keep an eye out for the verification email from Stripe.');
-            return redir('account');
-        } catch ( \Stripe\Error\InvalidRequest $e ) {
-            \Msg::danger('Activation failed, please see the error message below.');
-            \Session::flash('activation_failed', true);
-            return redir('account/activate');
+        $file = File::findOrFail($id);
+        $path = storage_path('app/' . $file->filename);
+        if ( !file_exists($path) ) {
+            die('Unable to find file');
         }
-    }
 
-    /**
-     * Save our setup wizard data
-     *
-     * @return json
-     */
-    public function saveSetupData()
-    {
-        $data = \Request::all();
-        if ( !isset($data['setup_completed']) ) {
-            $data['setup_completed'] = true;
-        }
-        $user = $this->companyService->update(app('company')->id, $data);
-        if ( !isset($data['setup_completed']) ) {
-            \Msg::success('Setup wizard has been completed successfully!');
-        }
-        return response()->json(['success' => true, 'route' => url('account')]);
-    }
+        return response()->file($path);
 
-    /**
-     * Create a new stripe account
-     *
-     * @return json
-     */
-    public function createStripeAccount()
-    {
-        $company = $this->companyService->createStripeAccount(app('company')->id, \Request::all());
-        return response()->json(['success' => true]);
-    }
-
-    /**
-     * Connect an existing stripe account
-     *
-     * @return json
-     */
-    public function connectStripeAccount()
-    {
-        $response = $this->companyService->connectStripeAccount(app('company')->id, \Request::all());
-        if ( $response['success'] ) {
-            \Msg::success('Your Stripe account has been connected successfully! You\'re now ready to start accepting live payments.');
-            return redir('account');
-        } else {
-            \Msg::danger($response['message']);
-            return redir('account/setup');
-        }
     }
 
     /**
