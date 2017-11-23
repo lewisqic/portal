@@ -45,6 +45,23 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-form-label col-sm-2">File Categories:</label>
+                        <div class="col-sm-10 form-control-static">
+                            <ul class="list-style-none pl-0 mb-0">
+                                @if ( $role->categories && $category_names )
+                                    <ul class="list-style-none pl-0">
+                                        @foreach ( $role->categories as $category )
+                                            <li>{{ $category_names[$category] }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <em class="text-muted">no file categories assigned</em>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-form-label col-sm-2">Files:</label>
                         <div class="col-sm-10 form-control-static">
                             <ul class="list-style-none pl-0 mb-0">

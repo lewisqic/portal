@@ -32,7 +32,8 @@ class RoleService extends BaseService
             }
             // create the role
             $data['files'] = isset($data['files']) ? $data['files'] : [];
-            $role = Role::create(array_only($data, ['type', 'name', 'is_default', 'files']));
+            $data['categories'] = isset($data['categories']) ? $data['categories'] : [];
+            $role = Role::create(array_only($data, ['type', 'name', 'is_default', 'files', 'categories']));
             // assign permissions
             if ( !empty($data['permissions']) ) {
                 $auth_role = \Auth::findRoleById($role->id);
@@ -59,8 +60,9 @@ class RoleService extends BaseService
         $result = \DB::transaction(function() use($id, $data) {
             // update the role
             $data['files'] = isset($data['files']) ? $data['files'] : [];
+            $data['categories'] = isset($data['categories']) ? $data['categories'] : [];
             $role = Role::findOrFail($id);
-            $role->fill(array_only($data, ['name', 'is_default', 'files']));
+            $role->fill(array_only($data, ['name', 'is_default', 'files', 'categories']));
             $role->permissions = null;
             $role->save();
             // remove defaults

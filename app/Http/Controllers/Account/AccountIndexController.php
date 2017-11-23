@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use App\User;
 use App\File;
+use App\ActivityLog;
 use App\Services\RemarkSettingService;
 use App\Http\Controllers\Controller;
 
@@ -36,15 +37,17 @@ class AccountIndexController extends Controller
         $user = app('app_user');
         
         $roles = $user->roles->toArray();
-        
+
+        $category_ids = $user->member->categories;
         $file_ids = $user->member->files;
         foreach ( $roles as $role ) {
             $file_ids = array_merge($file_ids, $role['files']);
+            $category_ids = array_merge($category_ids, $role['categories']);
         }
 
         $files = [];
         foreach ( File::all() as $file ) {
-            if ( in_array($file->id, $file_ids) ) {
+            if ( in_array($file->id, $file_ids) || in_array($file->file_category_id, $category_ids) ) {
                 $files[] = $file;
             }
         }
@@ -68,6 +71,9 @@ class AccountIndexController extends Controller
         if ( !file_exists($path) ) {
             die('Unable to find file');
         }
+
+        ActivityLog::create(['user_id' => app('app_user')->id, 'file_id' => $id, 'type' => 'File Download']);
+
         return response()->download($path, $file->name . '.' . $file->type);
     }
 
@@ -84,6 +90,8 @@ class AccountIndexController extends Controller
         if ( !file_exists($path) ) {
             die('Unable to find file');
         }
+
+        ActivityLog::create(['user_id' => app('app_user')->id, 'file_id' => $id, 'type' => 'File View']);
 
         return response()->file($path);
 

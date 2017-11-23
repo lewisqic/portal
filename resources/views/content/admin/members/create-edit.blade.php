@@ -102,10 +102,27 @@
 
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">
-                        File(s)
+                        File Categories
                     </label>
                     <div class="col-sm-9 form-control-static">
-                        <div class="file-list-wrapper" style="max-height: 600px; overflow: auto;">
+                        <div class="file-list-wrapper" style="max-height: 190px; overflow: auto;">
+                            @foreach ( $categories as $category )
+                                <div class="abc-checkbox abc-checkbox-primary">
+                                    <input type="checkbox" name="categories[]" id="category_{{ $category->id }}" value="{{ $category->id }}" {{ isset($user) && in_array($category->id, $user->member->categories) ? 'checked' : '' }}>
+                                    <label for="category_{{ $category->id }}">{{ $category->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <small class="form-text text-muted">Granting access to a category will allow users to view/download all files within that category.</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-3">
+                        Individual Files
+                    </label>
+                    <div class="col-sm-9 form-control-static">
+                        <div class="file-list-wrapper" style="max-height: 410px; overflow: auto;">
                             @foreach ( $files as $file )
                                 <div class="abc-checkbox abc-checkbox-primary">
                                     <input type="checkbox" name="files[]" id="file_{{ $file->id }}" value="{{ $file->id }}" {{ isset($user) && in_array($file->id, $user->member->files) ? 'checked' : '' }}>
@@ -113,8 +130,10 @@
                                 </div>
                             @endforeach
                         </div>
+                        <small class="form-text text-muted">You can grant access to individual files for this user.</small>
                     </div>
                 </div>
+
             </div>
             <div class="tab-pane" id="sidebar_permissions" role="tabpanel">
 

@@ -6,6 +6,7 @@ use App\User;
 use App\Administrator;
 use App\Member;
 use App\Reminder;
+use App\ActivityLog;
 use App\Services\AdministratorService;
 use App\Services\MemberService;
 use App\Services\RemarkSettingService;
@@ -55,7 +56,8 @@ class UserService extends BaseService
                     $member = $this->memberService->create([
                         'user_id' => $user->id,
                         'is_owner' => isset($data['is_owner']) && $data['is_owner'] ? true : false,
-                        'files' => isset($data['files']) ? $data['files'] : []
+                        'files' => isset($data['files']) ? $data['files'] : [],
+                        'categories' => isset($data['categories']) ? $data['categories'] : []
                     ]);
                     break;
             }
@@ -116,7 +118,8 @@ class UserService extends BaseService
         switch ( $user->type ) {
             case Member::USER_TYPE_ID:
                 $member = $this->memberService->update($id, [
-                    'files' => isset($data['files']) ? $data['files'] : []
+                    'files' => isset($data['files']) ? $data['files'] : [],
+                    'categories' => isset($data['categories']) ? $data['categories'] : []
                 ]);
                 break;
         }
@@ -141,6 +144,10 @@ class UserService extends BaseService
             $this->logout();
             $this->sendReminder($auth_user->email);
             throw new \AppExcp('Looks like you need to reset your password.  We have sent you an email that will allow you to reset your password.');
+        }
+
+        if ( $auth_user->type === 2 ) {
+            ActivityLog::create(['user_id' => $auth_user->id, 'file_id' => null, 'type' => 'User Login']);
         }
         
         $route = \Session::has('url.intended') ? \Session::get('url.intended') : User::$types[$auth_user->type]['route'];

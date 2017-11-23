@@ -114,5 +114,38 @@ class AdminFileController extends Controller
         return redir('admin/files');
     }
 
+    /**
+     * download file
+     *
+     * @return view
+     */
+    public function downloadFile($id)
+    {
+        $file = File::findOrFail($id);
+        $path = storage_path('app/' . $file->filename);
+        if ( !file_exists($path) ) {
+            die('Unable to find file');
+        }
+        return response()->download($path, $file->name . '.' . $file->type);
+    }
+
+    /**
+     * view file
+     *
+     * @return view
+     */
+    public function viewFile($id)
+    {
+
+        $file = File::findOrFail($id);
+        $path = storage_path('app/' . $file->filename);
+        if ( !file_exists($path) ) {
+            die('Unable to find file');
+        }
+
+        return response()->file($path);
+
+    }
+
 
 }

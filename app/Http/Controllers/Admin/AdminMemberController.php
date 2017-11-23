@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\FileCategory;
 use App\Member;
 use App\User;
 use App\Role;
@@ -67,6 +68,7 @@ class AdminMemberController extends Controller
             'method' => 'post',
             'action' => url('admin/members'),
             'files' => File::orderBy('name', 'asc')->get(),
+            'categories' => FileCategory::orderBy('name', 'asc')->get(),
             'roles' => Role::queryByType(Member::USER_TYPE_ID)
         ];
         return view('content.admin.members.create-edit', $data);
@@ -85,6 +87,7 @@ class AdminMemberController extends Controller
             'method' => 'put',
             'action' => url('admin/members/' . $id),
             'files' => File::orderBy('name', 'asc')->get(),
+            'categories' => FileCategory::orderBy('name', 'asc')->get(),
             'roles' => Role::queryByType(Member::USER_TYPE_ID),
             'user' => $user,
             'user_roles' => $user->roles->count() ? $user->roles->toArray() : []
@@ -99,6 +102,10 @@ class AdminMemberController extends Controller
      */
     public function show($id)
     {
+        $category_names = [];
+        foreach ( FileCategory::all() as $category ) {
+            $category_names[$category->id] = $category->name;
+        }
         $file_names = [];
         foreach ( File::all() as $file ) {
             $file_names[$file->id] = $file->name;
@@ -109,7 +116,8 @@ class AdminMemberController extends Controller
             'permissions' => \Config::get('permissions')['admin'],
             'user_roles' => $user->roles->count() ? $user->roles->toArray() : [],
             'user_permissions' => $user->permissions ? json_decode($user->permissions, true) : [],
-            'file_names' => $file_names
+            'file_names' => $file_names,
+            'category_names' => $category_names
         ];
         return view('content.admin.members.show', $data);
     }

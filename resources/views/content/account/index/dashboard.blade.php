@@ -2,13 +2,9 @@
 
 @section('content')
 
-    {!! Breadcrumbs::render('account') !!}
-
-    <h1>Dashboard</h1>
+    <h1>Publications Available for Download/Viewing</h1>
 
     <div class="page-content">
-
-        <h5 class="mb-4">Available Files</h5>
 
         @foreach ( $files as $file )
 

@@ -120,7 +120,7 @@
 
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="{{ url('account') }}" class="nav-link  {{ nav_active('^account$') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                <a href="{{ url('account') }}" class="nav-link  {{ nav_active('^account$') }}"><i class="fa fa-files-o"></i> <span>Publications</span></a>
             </li>
         </ul>
 

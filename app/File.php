@@ -37,6 +37,10 @@ class File extends BaseModel
      * MODEL RELATIONSHIPS
      ******************************************************************/
 
+    public function fileCategory()
+    {
+        return $this->belongsTo('\App\FileCategory');
+    }
 
 
     /******************************************************************

@@ -156,6 +156,28 @@
     $breadcrumbs->push('Edit', url('admin/file-categories/edit/' . $file->id));
 });
 
+// activity-logs
+\Breadcrumbs::register('admin/activity-logs', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin');
+    $breadcrumbs->push('Activity Logs', url('admin/activity-logs'));
+});
+\Breadcrumbs::register('admin/activity-logs/create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('admin/activity-logs');
+    $breadcrumbs->push('Create', url('admin/activity-logs/create'));
+});
+\Breadcrumbs::register('admin/activity-logs/show', function($breadcrumbs, $file)
+{
+    $breadcrumbs->parent('admin/activity-logs');
+    $breadcrumbs->push($file->name, url('admin/activity-logs/' . $file->id));
+});
+\Breadcrumbs::register('admin/activity-logs/edit', function($breadcrumbs, $file)
+{
+    $breadcrumbs->parent('admin/activity-logs/show', $file);
+    $breadcrumbs->push('Edit', url('admin/activity-logs/edit/' . $file->id));
+});
+
 
 
 /**

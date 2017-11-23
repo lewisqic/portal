@@ -51,6 +51,16 @@ class Role extends BaseModel
         return json_decode($value, true);
     }
 
+    public function setCategoriesAttribute($value)
+    {
+        $this->attributes['categories'] = json_encode($value);
+    }
+
+    public function getCategoriesAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
 
     /******************************************************************
      * CUSTOM  PROPERTIES

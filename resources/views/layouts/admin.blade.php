@@ -131,10 +131,16 @@
                 <a href="{{ url('admin/files') }}" class="nav-link {{ nav_active('^admin/files') }}"><i class="fa fa-file"></i> <span>Files</span></a>
             </li>
             <li class="nav-item">
+                <a href="{{ url('admin/file-categories') }}" class="nav-link {{ nav_active('^admin/file-categories') }}"><i class="fa fa-th-large"></i> <span>Files Categories</span></a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('admin/members') }}" class="nav-link {{ nav_active('^admin/members', '^admin/members/roles') }}"><i class="fa fa-user"></i> <span>Users</span></a>
             </li>
             <li class="nav-item">
                 <a href="{{ url('admin/members/roles') }}" class="nav-link {{ nav_active('^admin/members/roles') }}"><i class="fa fa-users"></i> <span>User Groups</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('admin/activity-logs') }}" class="nav-link {{ nav_active('^admin/activity-logs') }}"><i class="fa fa-list-ul"></i> <span>Activity Logs</span></a>
             </li>
 
 
@@ -150,7 +156,6 @@
                     @if ( has_access('AdminSettingController@index') )
                     {{--<a href="{{ url('admin/settings') }}" class="dropdown-item {{ nav_active('^admin/settings') }}">Settings</a>--}}
                     @endif
-                    <a href="{{ url('admin/file-categories') }}" class="dropdown-item {{ nav_active('^admin/file-categories') }}">File Categories</a>
                 </div>
             </li>
         </ul>

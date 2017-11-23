@@ -2,11 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Member extends BaseModel
+class ActivityLog extends BaseModel
 {
-    use SoftDeletes;
 
 
     /******************************************************************
@@ -20,7 +17,7 @@ class Member extends BaseModel
      * @var array
      */
     protected $rules = [
-        'user_id' => 'required'
+        'user_id' => 'required',
     ];
 
 
@@ -30,7 +27,7 @@ class Member extends BaseModel
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at', 'deleted_at'
+        'created_at', 'updated_at'
     ];
 
 
@@ -44,9 +41,9 @@ class Member extends BaseModel
         return $this->belongsTo('\App\User');
     }
 
-    public function company()
+    public function file()
     {
-        return $this->belongsTo('\App\Company');
+        return $this->belongsTo('\App\File');
     }
 
 
@@ -60,32 +57,12 @@ class Member extends BaseModel
      * MUTATORS AND ACCESSORS
      ******************************************************************/
 
-    public function setFilesAttribute($value)
-    {
-        $this->attributes['files'] = json_encode($value);
-    }
-
-    public function getFilesAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-
-    public function setCategoriesAttribute($value)
-    {
-        $this->attributes['categories'] = json_encode($value);
-    }
-
-    public function getCategoriesAttribute($value)
-    {
-        return json_decode($value, true);
-    }
 
 
     /******************************************************************
      * CUSTOM  PROPERTIES
      ******************************************************************/
 
-    const USER_TYPE_ID = 2;
 
     /******************************************************************
      * CUSTOM ORM ACTIONS

@@ -39,11 +39,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkPermissi
     Route::put('profile', ['uses' => 'AdminProfileController@update']);
 
     // files
+    Route::get('files/download/{id}', ['uses' => 'AdminFileController@downloadFile']);
+    Route::get('files/view/{id}', ['uses' => 'AdminFileController@viewFile']);
     Route::get('files/data', ['uses' => 'AdminFileController@dataTables']);
     Route::patch('files/{id}', ['uses' => 'AdminFileController@restore']);
     Route::resource('files', 'AdminFileController');
 
-    // files
+    // file categories
     Route::get('file-categories/data', ['uses' => 'AdminFileCategoryController@dataTables']);
     Route::patch('file-categories/{id}', ['uses' => 'AdminFileCategoryController@restore']);
     Route::resource('file-categories', 'AdminFileCategoryController');
@@ -56,6 +58,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkPermissi
     Route::get('members/data', ['uses' => 'AdminMemberController@dataTables']);
     Route::patch('members/{id}', ['uses' => 'AdminMemberController@restore']);
     Route::resource('members', 'AdminMemberController');
+
+    // activity logs
+    Route::get('activity-logs/data', ['uses' => 'AdminActivityLogController@dataTables']);
+    Route::resource('activity-logs', 'AdminActivityLogController');
 
     // administrators
     Route::get('administrators/data', ['uses' => 'AdminAdministratorController@dataTables']);

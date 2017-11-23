@@ -93,7 +93,26 @@
 
                     <div class="form-group row">
                         <label class="col-form-label col-sm-2">
-                            File(s)
+                            File Categories
+                        </label>
+                        <div class="col-sm-10 form-control-static">
+
+                            @if ( $user->member->categories && $category_names )
+                                <ul class="list-style-none pl-0 mb-0">
+                                    @foreach ( $user->member->categories as $category )
+                                        <li>{{ $category_names[$category] }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <em class="text-muted">no files categories assigned</em>
+                            @endif
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-2">
+                            Files
                         </label>
                         <div class="col-sm-10 form-control-static">
 
@@ -109,6 +128,7 @@
 
                         </div>
                     </div>
+
                 </div>
                 <div class="tab-pane" id="permissions" role="tabpanel">
 

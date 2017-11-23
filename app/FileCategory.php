@@ -37,6 +37,11 @@ class FileCategory extends BaseModel
      * MODEL RELATIONSHIPS
      ******************************************************************/
 
+    // files
+    public function files()
+    {
+        return $this->hasMany('\App\File');
+    }
 
 
     /******************************************************************

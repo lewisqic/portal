@@ -80,12 +80,15 @@ class FileService extends BaseService
                 'class' => !is_null($file->deleted_at) ? 'text-danger' : null,
                 'category' => $cat_names[$file->file_category_id],
                 'name' => $file->name,
+                'type' => $file->type,
                 'size' => $file->size,
                 'created_at' => [
                     'display' => $file->created_at->toFormattedDateString(),
                     'sort' => $file->created_at->timestamp
                 ],
                 'action' => \Html::dataTablesActionButtons([
+                    'view' => url('admin/files/view/' . $file->id),
+                    'download' => url('admin/files/download/' . $file->id),
                     'delete' => url('admin/files/' . $file->id),
                     'restore' => !is_null($file->deleted_at) ? url('admin/files/' . $file->id) : null
                 ])

@@ -21,8 +21,9 @@
             <thead>
                 <tr>
                     <th data-name="name">Name</th>
-                    <th data-name="category">Category</th>
+                    <th data-name="type">Type</th>
                     <th data-name="size">Size</th>
+                    <th data-name="category">Category</th>
                     <th data-name="created_at" data-o-sort="true" data-order="primary-desc">Date Created</th>
                     {!! Html::dataTablesActionColumn() !!}
                 </tr>
