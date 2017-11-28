@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use App\User;
 use App\File;
+use App\FileCategory;
 use App\ActivityLog;
 use App\Services\RemarkSettingService;
 use App\Http\Controllers\Controller;
@@ -38,6 +39,8 @@ class AccountIndexController extends Controller
         
         $roles = $user->roles->toArray();
 
+        $selected_category = !\Request::has('file_category_id') || \Request::input('file_category_id') == 'all' ? 'all' : \Request::input('file_category_id');
+
         $category_ids = $user->member->categories;
         $file_ids = $user->member->files;
         foreach ( $roles as $role ) {
@@ -45,15 +48,25 @@ class AccountIndexController extends Controller
             $category_ids = array_merge($category_ids, $role['categories']);
         }
 
+        $file_categories = FileCategory::orderBy('name', 'asc')->get();
+        $file_category_names = [];
+        foreach ( $file_categories as $cat ) {
+            $file_category_names[$cat->id] = $cat->name;
+        }
+
         $files = [];
         foreach ( File::all() as $file ) {
             if ( in_array($file->id, $file_ids) || in_array($file->file_category_id, $category_ids) ) {
-                $files[] = $file;
+                if ( $selected_category == 'all' || $selected_category == $file->file_category_id ) {
+                    $files[$file_category_names[$file->file_category_id]][] = $file;
+                }
             }
         }
+        ksort($files);
 
         $data = [
-            'files' => $files
+            'files' => $files,
+            'file_categories' => $file_categories
         ];
 
         return view('content.account.index.dashboard', $data);

@@ -44,7 +44,7 @@ class RemarkSetting extends BaseModel
     const DEFAULT_SIDEBAR_MINIMIZED = 0;
     const DEFAULT_NAVBAR_INVERSE = 0;
     const DEFAULT_SIDEBAR_SKIN = 'dark';
-    const DEFAULT_PRIMARY_COLOR = 'blue';
+    const DEFAULT_PRIMARY_COLOR = 'red';
 
 
     /******************************************************************

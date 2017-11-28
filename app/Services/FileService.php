@@ -54,7 +54,10 @@ class FileService extends BaseService
      */
     public function update($id, $data)
     {
-
+        $file = File::findOrFail($id);
+        $file->fill(array_only($data, ['name', 'file_category_id']));
+        $file->save();
+        return $file;
     }
 
 
@@ -66,6 +69,8 @@ class FileService extends BaseService
     {
         $files = File::when(!empty($data['with_trashed']), function($query) {
             return $query->withTrashed();
+        })->when(!empty($data['file_category_id']) && $data['file_category_id'] != 'all', function($query) use ($data) {
+            return $query->where('file_category_id', $data['file_category_id']);
         })->get();
 
         $cat_names = [];
@@ -87,6 +92,7 @@ class FileService extends BaseService
                     'sort' => $file->created_at->timestamp
                 ],
                 'action' => \Html::dataTablesActionButtons([
+                    'edit' => url('admin/files/' . $file->id . '/edit'),
                     'view' => url('admin/files/view/' . $file->id),
                     'download' => url('admin/files/download/' . $file->id),
                     'delete' => url('admin/files/' . $file->id),

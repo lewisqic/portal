@@ -20963,6 +20963,9 @@ Auth
 
 .remark .header .navbar .navbar-collapse {
   margin-top: -1px;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
 .remark .header .navbar .navbar-collapse .navbar-brand {

@@ -68,7 +68,18 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
-module.exports = __webpack_require__(2);
+__webpack_require__(2);
+__webpack_require__(3);
+__webpack_require__(4);
+__webpack_require__(5);
+__webpack_require__(6);
+__webpack_require__(7);
+__webpack_require__(8);
+__webpack_require__(9);
+__webpack_require__(10);
+__webpack_require__(11);
+__webpack_require__(12);
+module.exports = __webpack_require__(13);
 
 
 /***/ }),
@@ -629,7 +640,12 @@ var Core = function () {
                             var filters = $.parseJSON(localStorage.getItem('datatable_filters'));
                             var $filters = $this.closest('.dataTables_wrapper').prev('.datatable-filters');
                             $.each(filters, function (id, val) {
-                                $filters.find('#' + id).prop('checked', val ? true : false);
+                                var $filter = $filters.find('#' + id);
+                                if ($filter.is('input:checkbox')) {
+                                    $filter.prop('checked', val ? true : false);
+                                } else if ($filter.is('select')) {
+                                    $filter.val(val);
+                                }
                                 params[id] = val;
                             });
                             $this.attr('data-params', JSON.stringify(params));
@@ -748,6 +764,14 @@ var Core = function () {
                     $table.prev('.datatable-filters').find('input:checkbox').on('change', function (e) {
                         var params = $.parseJSON($table.find('.datatable').attr('data-params'));
                         params[$(this).attr('id')] = $(this).prop('checked') ? 1 : 0;
+                        var params_json = JSON.stringify(params);
+                        localStorage.setItem('datatable_filters', params_json);
+                        $table.find('.datatable').attr('data-params', params_json);
+                        $table.find('.dataTables_refresh a').click();
+                    });
+                    $table.prev('.datatable-filters').find('select').on('change', function (e) {
+                        var params = $.parseJSON($table.find('.datatable').attr('data-params'));
+                        params[$(this).attr('id')] = $(this).val();
                         var params_json = JSON.stringify(params);
                         localStorage.setItem('datatable_filters', params_json);
                         $table.find('.datatable').attr('data-params', params_json);
@@ -941,6 +965,72 @@ $.fn.button = function (method) {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

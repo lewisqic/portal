@@ -544,7 +544,12 @@ class Core {
                         let filters = $.parseJSON(localStorage.getItem('datatable_filters'));
                         let $filters = $this.closest('.dataTables_wrapper').prev('.datatable-filters');
                         $.each(filters, function(id, val) {
-                            $filters.find('#' + id).prop('checked', val ? true : false);
+                            let $filter = $filters.find('#' + id);
+                            if ( $filter.is('input:checkbox') ) {
+                                $filter.prop('checked', val ? true : false);
+                            } else if ( $filter.is('select') ) {
+                                $filter.val(val);
+                            }
                             params[id] = val;
                         });
                         $this.attr('data-params', JSON.stringify(params));
@@ -667,6 +672,14 @@ class Core {
                 $table.prev('.datatable-filters').find('input:checkbox').on('change', function(e) {
                     let params = $.parseJSON($table.find('.datatable').attr('data-params'));
                     params[$(this).attr('id')] = $(this).prop('checked') ? 1 : 0;
+                    let params_json = JSON.stringify(params);
+                    localStorage.setItem('datatable_filters', params_json);
+                    $table.find('.datatable').attr('data-params', params_json);
+                    $table.find('.dataTables_refresh a').click();
+                });
+                $table.prev('.datatable-filters').find('select').on('change', function(e) {
+                    let params = $.parseJSON($table.find('.datatable').attr('data-params'));
+                    params[$(this).attr('id')] = $(this).val();
                     let params_json = JSON.stringify(params);
                     localStorage.setItem('datatable_filters', params_json);
                     $table.find('.datatable').attr('data-params', params_json);

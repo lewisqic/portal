@@ -33,7 +33,10 @@ class AdminFileController extends Controller
      */
     public function index()
     {
-        return view('content.admin.files.index');
+        $data = [
+            'file_categories' => FileCategory::orderBy('name', 'asc')->get()
+        ];
+        return view('content.admin.files.index', $data);
     }
 
     /**
@@ -60,7 +63,22 @@ class AdminFileController extends Controller
             'action' => url('admin/files'),
             'file_categories' => FileCategory::orderBy('name', 'asc')->get()
         ];
-        return view('content.admin.files.create-edit', $data);
+        return view('content.admin.files.create', $data);
+    }
+
+    /**
+     * Show the files edit page
+     *
+     * @return view
+     */
+    public function edit($id)
+    {
+        $file = File::findOrFail($id);
+        $data = [
+            'file' => $file,
+            'file_categories' => FileCategory::orderBy('name', 'asc')->get()
+        ];
+        return view('content.admin.files.edit', $data);
     }
 
     /**
@@ -87,6 +105,18 @@ class AdminFileController extends Controller
         $data = \Request::all();
         $this->fileService->create($data);
         \Msg::success('File(s) have been added successfully!');
+        return redir('admin/files');
+    }
+
+    /**
+     * Create new file record
+     *
+     * @return redirect
+     */
+    public function update()
+    {
+        $file = $this->fileService->update(\Request::input('id'), \Request::except('id'));
+        \Msg::success($file->name . ' has been updated successfully!');
         return redir('admin/files');
     }
 

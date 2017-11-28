@@ -8,7 +8,8 @@
 
     <title>Admin | Customer Portal</title>
 
-    <link rel="stylesheet" id="skin_css" href="{{ url('assets/css/skins/' . $app_user->remarkSetting->primary_color . '.css') }}" />
+    <link rel="stylesheet" id="skin_css" href="{{ url('assets/css/skins/red.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/css/custom.css') }}" />
 
 </head>
 
@@ -17,25 +18,17 @@
 <div class="header">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div class="navbar-collapse">
             <a href="{{ url('admin') }}" class="navbar-brand"><i class="fa fa-cloud"></i> <span>Portal Admin</span></a>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a href="#" class="nav-link toggle-sidebar"><i class="fa fa-bars fa-lg"></i></a>
                 </li>
             </ul>
-            <form action="{{ url('admin/search') }}" method="post" class="validate form-inline mr-auto">
-                {!! Html::hiddenInput() !!}
-                <input class="form-control" type="text" placeholder="search...">
-                <button type="submit" class="btn"><i class="fa fa-search"></i></button>
-            </form>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown ml-3">
                     <a href="#" class="nav-link dropdown-toggle" id="user_menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Welcome, {{ $app_user->first_name }}
+                        <span class="d-none d-md-inline">Welcome, </span>{{ $app_user->first_name }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right animated fadeInUp" aria-labelledby="user_menu">
                         <a class="dropdown-item no-click">
@@ -48,14 +41,14 @@
                         <a href="{{ url('auth/logout') }}" class="dropdown-item text-danger"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none d-md-block">
                     <a href="{{ url('auth/logout') }}" class="nav-link text-danger"><i class="fa fa-power-off fa-lg"></i></a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="configurator">
+    {{--<div class="configurator">
         <a href="#" class="handle"><i class="fa fa-cog"></i></a>
         <div class="inner">
             <ul class="nav nav-tabs" role="tablist">
@@ -115,7 +108,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
 </div>
 

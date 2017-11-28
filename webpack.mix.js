@@ -59,7 +59,7 @@ fs.readdirSync('resources/assets/js/modules/').forEach(function(file) {
 //mix.sass('resources/assets/sass/core.scss', 'assets/css/core.' + (prod ? 'min.' : '') + 'css');
 // css skins
 if ( argv.match(/skins/) === null ) {
-    mix.sass('resources/assets/sass/skins/blue.scss', 'assets/css/skins/blue.' + (prod ? 'min.' : '') + 'css');
+    mix.sass('resources/assets/sass/skins/red.scss', 'assets/css/skins/red.' + (prod ? 'min.' : '') + 'css');
 } else {
     fs.readdirSync('resources/assets/sass/skins/').forEach(function(file) {
         let outputFile = file.replace('.scss', '.css');

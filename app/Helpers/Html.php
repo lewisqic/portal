@@ -51,19 +51,19 @@ class Html {
 			if ( is_null($url) ) continue;
 			switch ( $button ) {
 				case 'edit':
-					$buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible ' . (in_array('disable_sidebar', $buttons_arr) ? '' : 'open-sidebar') . '"><i class="fa fa-lg fa-pencil-square-o text-primary"></i></a>';
+					$buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible ' . (in_array('disable_sidebar', $buttons_arr) ? '' : 'open-sidebar') . '"><i class="fa fa-lg fa-pencil-square-o text-dark"></i></a>';
 				break;
 				case 'archive':
-					$buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-archive text-primary"></i></a>';
+					$buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-archive text-dark"></i></a>';
 				break;
 				case 'unarchive':
-					$buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-inbox text-success"></i></a>';
+					$buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-inbox text-dark"></i></a>';
 				break;
                 case 'download':
-                    $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-download text-primary"></i></a>';
+                    $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-download text-dark"></i></a>';
                     break;
                 case 'view':
-                    $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible" target="_blank"><i class="fa fa-lg fa-external-link text-primary"></i></a>';
+                    $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible" target="_blank"><i class="fa fa-lg fa-external-link text-dark"></i></a>';
                 break;
 			}
 		}

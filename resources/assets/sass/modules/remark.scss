@@ -29,6 +29,7 @@ $sidebar-minimized-width: 75px;
             height: $header-height;
             .navbar-collapse {
                 margin-top: -1px;
+                display: flex !important;
                 .navbar-brand {
                     width: $sidebar-width;
                     background: $brand-primary;
