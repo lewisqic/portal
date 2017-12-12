@@ -17,6 +17,20 @@
             {!! Html::hiddenInput(['method' => $method]) !!}
 
             <div class="form-group row">
+                <label class="col-form-label col-sm-3">Parent</label>
+                <div class="col-sm-9">
+                    <select name="parent" class="form-control">
+                        <option value="">- None -</option>
+                        @foreach ( $file_categories as $cat_arr )
+                            @if ( empty($cat_arr['parent']) )
+                            <option value="{{ $cat_arr['id'] }}" {{ isset($file) && $cat_arr['id'] == $file->parent ? 'selected' : '' }}>{{ $cat_arr['name'] }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label class="col-form-label col-sm-3">Name</label>
                 <div class="col-sm-9">
                     <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $file->name or old('name') }}" data-fv-notempty="true" autofocus>

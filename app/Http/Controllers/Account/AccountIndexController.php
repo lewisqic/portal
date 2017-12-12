@@ -48,6 +48,7 @@ class AccountIndexController extends Controller
             $category_ids = array_merge($category_ids, $role['categories']);
         }
 
+
         $file_categories = FileCategory::orderBy('name', 'asc')->get();
         $file_category_names = [];
         foreach ( $file_categories as $cat ) {

@@ -69,5 +69,26 @@ class FileCategory extends BaseModel
      ******************************************************************/
 
 
+    public static function getList()
+    {
+
+        $categories = FileCategory::whereNull('parent')->orderBy('name', 'asc')->get();
+
+
+        $all = [];
+        foreach ( $categories as $cat ) {
+            $all[] = ['id' => $cat->id, 'parent' => null, 'name' => $cat->name];
+            $children = FileCategory::where('parent', $cat->id)->orderBy('name', 'asc')->get();
+            foreach ( $children as $child ) {
+                $all[] = ['id' => $child->id, 'parent' => $child->parent, 'name' => ' - ' . $child->name];
+            }
+
+        }
+
+        return $all;
+
+    }
+
+
 
 }

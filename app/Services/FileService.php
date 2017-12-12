@@ -35,7 +35,7 @@ class FileService extends BaseService
                 $f->file_category_id = $data['file_category_id'][$key];
                 $f->name = $data['name'][$key];
                 $f->filename = $filename;
-                $f->type = $file->extension();
+                $f->type = strtolower($file->getClientOriginalExtension());
                 $f->size = $file->getClientSize();
                 $f->save();
 
@@ -93,7 +93,7 @@ class FileService extends BaseService
                 ],
                 'action' => \Html::dataTablesActionButtons([
                     'edit' => url('admin/files/' . $file->id . '/edit'),
-                    'view' => url('admin/files/view/' . $file->id),
+                    'view' => $file->type != 'exe' ? url('admin/files/view/' . $file->id) : '',
                     'download' => url('admin/files/download/' . $file->id),
                     'delete' => url('admin/files/' . $file->id),
                     'restore' => !is_null($file->deleted_at) ? url('admin/files/' . $file->id) : null

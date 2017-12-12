@@ -43,6 +43,11 @@ class UserService extends BaseService
     public function create($data)
     {
         $result = \DB::transaction(function() use($data) {
+            // check for dup email
+            $existing_user = User::where('email', $data['email'])->count();
+            if ( $existing_user > 0 ) {
+                throw new \AppExcp('An active user with that email address already exists.');
+            }
             // create the user
             $user = User::create(array_only($data, ['type', 'first_name', 'last_name', 'email', 'password']));
             // create the relation table

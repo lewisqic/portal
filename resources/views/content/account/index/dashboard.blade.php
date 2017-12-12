@@ -40,9 +40,11 @@
                                 <span class="ml-5">
                                     <a href="{{ url('account/download-file/' . $file->id) }}"><i class="fa fa-download fa-lg"></i></a>
                                 </span>
+                                @if ( $file->type != 'exe' )
                                 <span class="ml-3">
                                     <a href="{{ url('account/view-file/' . $file->id) }}" target="_blank"><i class="fa fa-external-link fa-lg"></i></a>
                                 </span>
+                                @endif
                             </div>
                         </div>
                     </div>

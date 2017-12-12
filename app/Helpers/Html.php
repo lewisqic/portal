@@ -63,7 +63,9 @@ class Html {
                     $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible"><i class="fa fa-lg fa-download text-dark"></i></a>';
                     break;
                 case 'view':
-                    $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible" target="_blank"><i class="fa fa-lg fa-external-link text-dark"></i></a>';
+                    if ( !empty($url) ) {
+                        $buttons .= '<a href="' . $url . '" class="btn btn-sm btn-outline-light invisible" target="_blank"><i class="fa fa-lg fa-external-link text-dark"></i></a>';
+                    }
                 break;
 			}
 		}

@@ -57,6 +57,7 @@ class AdminFileCategoryController extends Controller
             'title' => 'Add',
             'method' => 'post',
             'action' => url('admin/file-categories'),
+            'file_categories' => FileCategory::getList()
         ];
         return view('content.admin.file-categories.create-edit', $data);
     }
@@ -73,7 +74,8 @@ class AdminFileCategoryController extends Controller
             'title' => 'Edit',
             'method' => 'put',
             'file' => $file,
-            'action' => url('admin/file-categories/' . $id)
+            'action' => url('admin/file-categories/' . $id),
+            'file_categories' => FileCategory::getList()
         ];
         return view('content.admin.file-categories.create-edit', $data);
     }

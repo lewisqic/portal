@@ -24,7 +24,7 @@ class User extends BaseModel
     protected $rules = [
         'first_name'            => 'required|between:2,80',
         'last_name'             => 'required|between:2,80',
-        'email'                 => 'required|between:5,64|email|unique:users,email',
+        'email'                 => 'required|between:5,64|email',
         'password'              => 'required|min:6'
     ];
 

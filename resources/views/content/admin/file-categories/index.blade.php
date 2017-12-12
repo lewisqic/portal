@@ -20,7 +20,8 @@
         <table id="list_file_categories_table" class="datatable table table-striped table-hover" data-url="{{ url('admin/file-categories/data') }}" data-params='{}'>
             <thead>
                 <tr>
-                    <th data-name="name" data-order="primary-asc">Name</th>
+                    <th data-name="name" data-order="secondary-asc">Name</th>
+                    <th data-name="parent" data-order="primary-asc">Parent</th>
                     <th data-name="created_at" data-o-sort="true">Date Created</th>
                     {!! Html::dataTablesActionColumn() !!}
                 </tr>

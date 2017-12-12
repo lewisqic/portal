@@ -37,7 +37,7 @@ class FileCategoryService extends BaseService
     public function update($id, $data)
     {
         $file = FileCategory::findOrFail($id);
-        $file->fill(array_only($data, ['name']));
+        $file->fill(array_only($data, ['parent', 'name']));
         $file->save();
         return $file;
     }
@@ -53,12 +53,18 @@ class FileCategoryService extends BaseService
             return $query->withTrashed();
         })->get();
 
+        $cat_names = [];
+        foreach ( FileCategory::all() as $file ) {
+            $cat_names[$file->id] = $file->name;
+        }
+
         $files_arr = [];
         foreach ( $files as $file ) {
             $files_arr[] = [
                 'id' => $file->id,
                 'class' => !is_null($file->deleted_at) ? 'text-danger' : null,
                 'name' => $file->name,
+                'parent' => $file->parent ? $cat_names[$file->parent] : '<em class="text-muted">none</em>',
                 'created_at' => [
                     'display' => $file->created_at->toFormattedDateString(),
                     'sort' => $file->created_at->timestamp
