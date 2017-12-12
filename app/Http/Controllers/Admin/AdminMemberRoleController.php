@@ -61,7 +61,7 @@ class AdminMemberRoleController extends Controller
             'method' => 'post',
             'action' => url('admin/members/roles'),
             'files' => File::orderBy('name', 'asc')->get(),
-            'categories' => FileCategory::orderBy('name', 'asc')->get(),
+            'categories' => FileCategory::getList(),
         ];
         return view('content.admin.members.roles.create-edit', $data);
     }
@@ -79,7 +79,7 @@ class AdminMemberRoleController extends Controller
             'method' => 'put',
             'action' => url('admin/members/roles/' . $id),
             'files' => File::orderBy('name', 'asc')->get(),
-            'categories' => FileCategory::orderBy('name', 'asc')->get(),
+            'categories' => FileCategory::getList(),
             'role' => $role,
             'auth_role' => \Auth::findRoleById($role->id)
         ];

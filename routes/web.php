@@ -42,6 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkPermissi
     Route::get('files/download/{id}', ['uses' => 'AdminFileController@downloadFile']);
     Route::get('files/view/{id}', ['uses' => 'AdminFileController@viewFile']);
     Route::get('files/data', ['uses' => 'AdminFileController@dataTables']);
+    Route::post('files/upload', ['uses' => 'AdminFileController@uploadFile']);
     Route::patch('files/{id}', ['uses' => 'AdminFileController@restore']);
     Route::resource('files', 'AdminFileController');
 

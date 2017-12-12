@@ -25,7 +25,7 @@
 
                     <select name="file_category_id" class="form-control">
                         @foreach ( $file_categories as $cat )
-                            <option value="{{ $cat->id }}" {{ $file->file_category_id == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                            <option value="{{ $cat['id'] }}" {{ $file->file_category_id == $cat['id'] ? 'selected' : '' }}>{{ $cat['name'] }}</option>
                         @endforeach
                     </select>
 

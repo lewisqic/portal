@@ -12,7 +12,7 @@
                 <select name="file_category_id" class="form-control d-inline" style="width: 250px;" onchange="this.form.submit();">
                     <option value="all">All</option>
                     @foreach ( $file_categories as $cat )
-                    <option value="{{ $cat->id }}" {{ \Request::input('file_category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                    <option value="{{ $cat['id'] }}" {{ \Request::input('file_category_id') == $cat['id'] ? 'selected' : '' }}>{{ $cat['name'] }}</option>
                     @endforeach
                 </select>
             </form>

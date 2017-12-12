@@ -1,17 +1,6 @@
 {
     "/assets/js/core.js": "/assets/js/core.js",
-    "/assets/css/skins/blue.css": "/assets/css/skins/blue.css",
-    "/assets/css/skins/brown.css": "/assets/css/skins/brown.css",
-    "/assets/css/skins/cyan.css": "/assets/css/skins/cyan.css",
-    "/assets/css/skins/green.css": "/assets/css/skins/green.css",
-    "/assets/css/skins/grey.css": "/assets/css/skins/grey.css",
-    "/assets/css/skins/lavender.css": "/assets/css/skins/lavender.css",
-    "/assets/css/skins/orange.css": "/assets/css/skins/orange.css",
-    "/assets/css/skins/pink.css": "/assets/css/skins/pink.css",
-    "/assets/css/skins/purple.css": "/assets/css/skins/purple.css",
     "/assets/css/skins/red.css": "/assets/css/skins/red.css",
-    "/assets/css/skins/teal.css": "/assets/css/skins/teal.css",
-    "/assets/css/skins/yellow.css": "/assets/css/skins/yellow.css",
     "/assets/js/vendor.js": "/assets/js/vendor.js",
     "/assets/js/modules/auth.js": "/assets/js/modules/auth.js",
     "/assets/js/modules/forms.js": "/assets/js/modules/forms.js",
@@ -19,5 +8,6 @@
     "/assets/js/modules/remark.js": "/assets/js/modules/remark.js",
     "/assets/js/modules/sign-up.js": "/assets/js/modules/sign-up.js",
     "/assets/js/modules/upgrade.js": "/assets/js/modules/upgrade.js",
+    "/assets/js/modules/upload.js": "/assets/js/modules/upload.js",
     "/assets/js/modules/wizard.js": "/assets/js/modules/wizard.js"
 }

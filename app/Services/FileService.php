@@ -17,6 +17,24 @@ class FileService extends BaseService
 
     }
 
+    /**
+     * upload new file
+     * @param  array  $data
+     * @return array
+     */
+    public function upload($file)
+    {
+        if ( $file->isValid() ) {
+            $filename = $file->store('files');
+            return [
+                'filename' => $filename,
+                'type' => strtolower($file->getClientOriginalExtension()),
+                'size' => $file->getClientSize()
+            ];
+        }
+        throw new \AppExcp('Unable to upload file');
+    }
+
 
     /**
      * create a new file record
@@ -26,22 +44,20 @@ class FileService extends BaseService
     public function create($data)
     {
 
-        foreach ( $data['file'] as $key => $file ) {
+        if ( !empty($data['filename']) ) {
 
-            if ( $file->isValid() && !empty($data['file_category_id'][$key]) && !empty($data['name'][$key]) ) {
+            $f = new File;
+            $f->file_category_id = $data['file_category_id'];
+            $f->name = $data['name'];
+            $f->filename = $data['filename'];
+            $f->type = $data['type'];
+            $f->size = $data['size'];
+            $f->save();
 
-                $filename = $file->store('files');
-                $f = new File;
-                $f->file_category_id = $data['file_category_id'][$key];
-                $f->name = $data['name'][$key];
-                $f->filename = $filename;
-                $f->type = strtolower($file->getClientOriginalExtension());
-                $f->size = $file->getClientSize();
-                $f->save();
-
-            }
+            return $f;
 
         }
+        return null;
 
 
     }

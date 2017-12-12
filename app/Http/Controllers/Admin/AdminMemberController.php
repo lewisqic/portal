@@ -68,7 +68,7 @@ class AdminMemberController extends Controller
             'method' => 'post',
             'action' => url('admin/members'),
             'files' => File::orderBy('name', 'asc')->get(),
-            'categories' => FileCategory::orderBy('name', 'asc')->get(),
+            'categories' => FileCategory::getList(),
             'roles' => Role::queryByType(Member::USER_TYPE_ID)
         ];
         return view('content.admin.members.create-edit', $data);
@@ -87,7 +87,7 @@ class AdminMemberController extends Controller
             'method' => 'put',
             'action' => url('admin/members/' . $id),
             'files' => File::orderBy('name', 'asc')->get(),
-            'categories' => FileCategory::orderBy('name', 'asc')->get(),
+            'categories' => FileCategory::getList(),
             'roles' => Role::queryByType(Member::USER_TYPE_ID),
             'user' => $user,
             'user_roles' => $user->roles->count() ? $user->roles->toArray() : []

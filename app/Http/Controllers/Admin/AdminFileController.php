@@ -34,7 +34,7 @@ class AdminFileController extends Controller
     public function index()
     {
         $data = [
-            'file_categories' => FileCategory::orderBy('name', 'asc')->get()
+            'file_categories' => FileCategory::getList()
         ];
         return view('content.admin.files.index', $data);
     }
@@ -61,7 +61,7 @@ class AdminFileController extends Controller
             'title' => 'Add',
             'method' => 'post',
             'action' => url('admin/files'),
-            'file_categories' => FileCategory::orderBy('name', 'asc')->get()
+            'file_categories' => FileCategory::getList()
         ];
         return view('content.admin.files.create', $data);
     }
@@ -76,7 +76,7 @@ class AdminFileController extends Controller
         $file = File::findOrFail($id);
         $data = [
             'file' => $file,
-            'file_categories' => FileCategory::orderBy('name', 'asc')->get()
+            'file_categories' => FileCategory::getList()
         ];
         return view('content.admin.files.edit', $data);
     }
@@ -103,9 +103,25 @@ class AdminFileController extends Controller
     public function store()
     {
         $data = \Request::all();
-        $this->fileService->create($data);
-        \Msg::success('File(s) have been added successfully!');
+        if ( $data['filename'] ) {
+            $this->fileService->create($data);
+            \Msg::success('File(s) have been added successfully!');
+        } else {
+            \Msg::danger('No file was uploaded.');
+        }
         return redir('admin/files');
+    }
+
+    /**
+     * Create new file record
+     *
+     * @return redirect
+     */
+    public function uploadFile()
+    {
+        $file = \Request::file('file');
+        $result = $this->fileService->upload($file);
+        return response()->json(['success' => true, 'filename' => $result['filename'], 'type' => $result['type'], 'size' => $result['size']]);
     }
 
     /**

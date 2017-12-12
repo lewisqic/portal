@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
             if ( empty($e->getMessage()) && is_a($e, 'Illuminate\Session\TokenMismatchException') ) {
                 $message = 'Your form has expired, please refresh the page and try again.';
             }
-            $data = ['success' => false, 'message' => $message, 'file' => $e->getFile(), 'line' => $e->getLine()];
+            $data = ['success' => false, 'message' => $message, 'error' => $message, 'file' => $e->getFile(), 'line' => $e->getLine()];
             if ( !is_null($errors) ) {
                 $data['errors'] = $errors->all();
                 $data['message'] = implode(', ', $errors->all());

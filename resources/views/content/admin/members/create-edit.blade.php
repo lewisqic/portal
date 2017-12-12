@@ -108,8 +108,8 @@
                         <div class="file-list-wrapper" style="max-height: 190px; overflow: auto;">
                             @foreach ( $categories as $category )
                                 <div class="abc-checkbox abc-checkbox-primary">
-                                    <input type="checkbox" name="categories[]" id="category_{{ $category->id }}" value="{{ $category->id }}" {{ isset($user) && in_array($category->id, $user->member->categories) ? 'checked' : '' }}>
-                                    <label for="category_{{ $category->id }}">{{ $category->name }}</label>
+                                    <input type="checkbox" name="categories[]" id="category_{{ $category['id'] }}" value="{{ $category['id'] }}" {{ isset($user) && in_array($category['id'], $user->member->categories) ? 'checked' : '' }}>
+                                    <label for="category_{{ $category['id'] }}">{{ $category['name'] }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -142,8 +142,7 @@
                         Group(s)
                     </label>
                     <div class="col-sm-9 form-control-static">
-
-                        <select name="roles[]" class="form-control" size="3" data-fv-notempty="true" multiple>
+                        <select name="roles[]" class="form-control" size="3" multiple>
                             @foreach ( $roles as $role )
                             @if ( $title == 'Edit' )
                                 <option value="{{ $role->id }}" {{ in_array($role->id, array_pluck($user_roles, 'id')) ? 'selected' : '' }}>{{ $role->name }}</option>
@@ -152,6 +151,8 @@
                             @endif
                             @endforeach
                         </select>
+
+
                     </div>
                 </div>
 

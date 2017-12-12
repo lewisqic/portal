@@ -31,7 +31,8 @@ mix.scripts([
         'resources/assets/js/vendor/jquery.dataTables.js',
         'resources/assets/js/vendor/dataTables.bootstrap4.min.js',
         'resources/assets/js/vendor/jquery.simpler-sidebar.js',
-        'resources/assets/js/vendor/purl.js'
+        'resources/assets/js/vendor/purl.js',
+        'resources/assets/js/vendor/dropzone.js'
     ],
     'public/assets/js/vendor.' + (prod ? 'min.' : '') + 'js'
 );

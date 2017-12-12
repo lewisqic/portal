@@ -41,8 +41,8 @@
                 <div class="file-list-wrapper" style="max-height: 190px; overflow: auto;">
                     @foreach ( $categories as $category )
                         <div class="abc-checkbox abc-checkbox-primary">
-                            <input type="checkbox" name="categories[]" id="category_{{ $category->id }}" value="{{ $category->id }}" {{ isset($role) && in_array($category->id, $role->categories) ? 'checked' : '' }}>
-                            <label for="category_{{ $category->id }}">{{ $category->name }}</label>
+                            <input type="checkbox" name="categories[]" id="category_{{ $category['id'] }}" value="{{ $category['id'] }}" {{ isset($role) && in_array($category['id'], $role->categories) ? 'checked' : '' }}>
+                            <label for="category_{{ $category['id'] }}">{{ $category['name'] }}</label>
                         </div>
                     @endforeach
                 </div>

@@ -5,7 +5,7 @@
     {!! Breadcrumbs::render('admin/files') !!}
 
     <div class="float-right">
-        <a href="{{ url('admin/files/create') }}" class="btn btn-primary open-sidebar"><i class="fa fa-plus-circle"></i> Add Fie</a>
+        <a href="{{ url('admin/files/create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add Fie</a>
     </div>
 
     <h1>Files</h1>
@@ -16,7 +16,7 @@
             <select class="form-control d-inline mr-3" id="file_category_id" style="width: 250px;">
                 <option value="all">All</option>
                 @foreach ( $file_categories as $category )
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                 @endforeach
             </select>
             <div class="abc-checkbox abc-checkbox-primary checkbox-inline">

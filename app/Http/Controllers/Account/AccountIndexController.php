@@ -48,6 +48,17 @@ class AccountIndexController extends Controller
             $category_ids = array_merge($category_ids, $role['categories']);
         }
 
+        $categories = FileCategory::whereIn('id', $category_ids)->get();
+        foreach ( $categories as $cat ) {
+            $children_cats = FileCategory::where('parent', $cat->id)->pluck('id')->toArray();
+            if ( !empty($children_cats) ) {
+                $category_ids = array_merge($category_ids, $children_cats);
+            }
+        }
+        $category_ids = array_map(function($id) {
+            return (int) $id;
+        }, $category_ids);
+
 
         $file_categories = FileCategory::orderBy('name', 'asc')->get();
         $file_category_names = [];
@@ -67,7 +78,7 @@ class AccountIndexController extends Controller
 
         $data = [
             'files' => $files,
-            'file_categories' => $file_categories
+            'file_categories' => FileCategory::getList()
         ];
 
         return view('content.account.index.dashboard', $data);

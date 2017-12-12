@@ -17,6 +17,8 @@ $fa-font-path: '../fonts';
 @import 'node_modules/sweetalert2/dist/sweetalert2';
 // Form Validation
 @import 'resources/assets/css/vendor/formValidation';
+// Dropzone
+@import 'resources/assets/css/vendor/dropzone';
 // Bootstrap checkbox
 @import 'resources/assets/sass/vendor/abc';
 // datatables
@@ -355,6 +357,12 @@ div.labels-right{
 // swal
 .swal2-modal .swal2-buttonswrapper {
     margin-top: 30px;
+}
+
+// dropzone
+.dz-error-message {
+    top: 80px !important;
+    width: 180px !important;
 }
 
 // datatables
