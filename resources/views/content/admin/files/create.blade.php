@@ -66,6 +66,9 @@
         maxFiles: 1,
         addRemoveLinks: true,
         maxFilesize: 500,
+        timeout: 3000000,
+        chunking: true,
+        chunckSize: 5242880,
         success: function(file, res) {
             $('input[name="filename"]').val(res.filename);
             $('input[name="type"]').val(res.type);

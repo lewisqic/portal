@@ -119,6 +119,7 @@ class AdminFileController extends Controller
      */
     public function uploadFile()
     {
+        set_time_limit(600);
         $file = \Request::file('file');
         $result = $this->fileService->upload($file);
         return response()->json(['success' => true, 'filename' => $result['filename'], 'type' => $result['type'], 'size' => $result['size']]);
